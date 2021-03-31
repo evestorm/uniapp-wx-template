@@ -190,7 +190,7 @@ npm run dev:mp-weixin
 - [Color Highlight](https://link.juejin.im/?target=https://marketplace.visualstudio.com/items?itemName=naumovs.color-highlight)，识别代码中的颜色，包括各种颜色格式。
 - [Bracket Pair Colorizer Bracket Pair Colorizer 2](https://marketplace.visualstudio.com/items?itemName=CoenraadS.bracket-pair-colorizer-2)，识别代码中的各种括号，并且标记上不同的颜色，方便你扫视到匹配的括号。
 
-### ESLint + Prettier 配置
+## ESLint + Prettier 配置
 
 终端执行：
 
@@ -204,10 +204,70 @@ vue add eslint
 
 执行完毕后会在项目根目录下生产 `.eslintrc.js` 文件。
 
-#### 配置 .eslintrc.js 文件
+### 配置 .eslintrc.js 文件
 
 执行 `npm run dev:mp-weixin` 后，eslint 会根据 `.eslintrc.js` 中使用到的插件对项目文件进行检测并报出警告或错误。而我们会使用到 prettier 来格式化文件，为了避免 `Ctrl+S` 自动保存后冲突报错，我们还需要在 `rules` 中配置额外的规则（针对 extends 中的 @vue/prettier），详情见 `.eslintrc.js`
 
-#### 配置 .prettierrc.js 文件
+### 配置 .prettierrc.js 文件
 
 在项目根目录下新建 `.prettierrc.js`，配置见文件。
+
+## 配置 lint-staged + husky 限制提交
+
+假设有一个同事头铁，就是不正确安装插件和配置编译器。他提交代码的风格就无法得到统一，所以需要再增加一层保险，在 git commit 时候需要校验所有改动过的文件，对这些文件使用 prettier --write 。
+
+git commit 时触发、校验所有改动过的文件。这两个功能分别是两个插件：
+
+- husky 运行 Githooks 诸如 Pre-commit、pre-receive 和 post-receive。用以在各个阶段触发不同校验，一般配合各种 lint 使用
+- lint-staged 当项目文件比较多的时候，如果每次改动都对所有文件进行校验。势必导致等待时间变长。 解决上面的痛点就需要使用 lint-staged。它只会校验你提交或者说你修改的部分内容。
+
+### 依赖安装
+
+```shell
+npm i husky lint-staged -D
+```
+
+### 配置 package.json
+
+```json
+"husky": {
+  "hooks": {
+    "pre-commit": "lint-staged"
+  }
+},
+"lint-staged": {
+  "src/**/*.{js,vue,md}": [
+    "prettier --write",
+    "git add"
+  ]
+},
+```
+
+#### husky 报错 or 不工作
+
+TIPS: 提示：husky 目前 5 版本不正常，如果安装完后项目根目录的 `.git` 目录下没有 `hooks` 文件夹，或者提交代码后不生效，就先卸载 husky ，然后安装 4 版本：`npm i husky@4.3.8 -D`
+
+如果上述步骤还是没法没用，可能原因是 Sourcetree 在 Mac 下 git pre-commit 钩子无法使用 node 问题
+
+解决办法：<https://www.jianshu.com/p/e70d735358eb>
+
+**大概步骤**
+
+首先打印你的 node 目录：
+
+```bash
+which node
+```
+
+比如(每个人的目录都不同)
+
+```bash
+/usr/local/opt/node/bin
+```
+
+然后将目录加入到 你的 git 项目下 .git/hooks/pre-commit 中
+
+```bash
+# $PATH是已有目录
+PATH="/usr/local/opt/node/bin:$PATH"
+```

@@ -11,7 +11,6 @@ module.exports = {
   jsxBracketSameLine: false, // 将多行JSX元素的>放在最后一行的末尾，而不是单独放在下一行(这不适用于自闭元素)。默认false
   arrowParens: "avoid", // 箭头函数中的括号 'avoid': 在有需要的时候使用. Example: x => x | 'always' - 一直使用. Example: (x) => x
   rangeStart: 0, // default:0
-  rangeEnd: null, // default:Infinity
   insertPragma: false, // default:false
   requirePragma: false, // default:false
   proseWrap: "preserve", // 不包装 markdown text default:"preserve"
@@ -33,6 +32,8 @@ module.exports = {
       }, // 自己保持tabWidth：2不变
     },
   ],
+  // rangeEnd: "Infinity", // default:Infinity 不要配置，会导致vscode无法格式化
+
   //  文档：https://prettier.io/docs/en/options.html
   //  翻译博客：https://blog.csdn.net/ganyingxie123456/article/details/105957586
 };
