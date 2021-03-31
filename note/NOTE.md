@@ -118,12 +118,7 @@ npm run dev:mp-weixin
 
 ```json
 {
-  "recommendations": [
-    "octref.vetur",
-    "esbenp.prettier-vscode",
-    "dbaeumer.vscode-eslint",
-    "stylelint.vscode-stylelint"
-  ],
+  "recommendations": ["octref.vetur", "esbenp.prettier-vscode", "dbaeumer.vscode-eslint", "stylelint.vscode-stylelint"],
   "unwantedRecommendations": ["yoyo930021.vuter"]
 }
 ```
@@ -137,6 +132,8 @@ npm run dev:mp-weixin
 ![JSON with Comments](./images/json-with-comments.png)
 
 ### 插件安装
+
+将 `.vscode/extensions.json` 下所有 `recommendations` 中的插件都安装上。
 
 - ✅ 字体加粗为必须安装
 - 👍 没有加粗为可选，但推荐安装
@@ -171,7 +168,7 @@ npm run dev:mp-weixin
 - [Import Cost](https://marketplace.visualstudio.com/items?itemName=wix.vscode-import-cost) 显示导入的包的大小
 - [Template String Converter](https://marketplace.visualstudio.com/items?itemName=meganrogge.template-string-converter) 字符串中添加变量时，自动转为模板字符串形式
 - [Vue VSCode Snippets](https://marketplace.visualstudio.com/items?itemName=sdras.vue-vscode-snippets) Vue 代码补全
-- [Vue helper](https://marketplace.visualstudio.com/items?itemName=shenjiaolong.vue-helper)，提高vue开发效率，在vue单文件可实现跳转方法定义
+- [Vue helper](https://marketplace.visualstudio.com/items?itemName=shenjiaolong.vue-helper)，提高 vue 开发效率，在 vue 单文件可实现跳转方法定义
 
 ##### 代码运行
 
@@ -192,3 +189,25 @@ npm run dev:mp-weixin
   维护时间稍长的代码仓库免不了会有各种 TODO、FIXME、HACK 之类的标记，TODO Highlight 能够帮我们把这些关键词高亮出来，在你翻阅代码时非常醒目，就像是在大声提醒你尽快把他解决掉。支持自定义配置需要高亮的关键词，实际使用比较坑的地方是，TODO、FIXME 之类的后面必须加上冒号，否则无法高亮。
 - [Color Highlight](https://link.juejin.im/?target=https://marketplace.visualstudio.com/items?itemName=naumovs.color-highlight)，识别代码中的颜色，包括各种颜色格式。
 - [Bracket Pair Colorizer Bracket Pair Colorizer 2](https://marketplace.visualstudio.com/items?itemName=CoenraadS.bracket-pair-colorizer-2)，识别代码中的各种括号，并且标记上不同的颜色，方便你扫视到匹配的括号。
+
+### ESLint + Prettier 配置
+
+终端执行：
+
+```shell
+vue add eslint
+? Pick an ESLint config: Prettier
+? Pick additional lint features: Lint on save
+```
+
+选择 Prettier 方案。
+
+执行完毕后会在项目根目录下生产 `.eslintrc.js` 文件。
+
+#### 配置 .eslintrc.js 文件
+
+执行 `npm run dev:mp-weixin` 后，eslint 会根据 `.eslintrc.js` 中使用到的插件对项目文件进行检测并报出警告或错误。而我们会使用到 prettier 来格式化文件，为了避免 `Ctrl+S` 自动保存后冲突报错，我们还需要在 `rules` 中配置额外的规则（针对 extends 中的 @vue/prettier），详情见 `.eslintrc.js`
+
+#### 配置 .prettierrc.js 文件
+
+在项目根目录下新建 `.prettierrc.js`，配置见文件。
