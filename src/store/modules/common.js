@@ -1,3 +1,4 @@
+/* eslint-disable no-empty */
 /* eslint-disable no-undef */
 export const state = {
   //webView地址

@@ -380,7 +380,7 @@ index.vue 中添加如下代码测试：
 - iconfont.ttf 字体文件
 - iconfont.css css 文件
 
-在 src 下新建 `assets/iconfont` 文件夹（删除原来的 static 文件夹及其项目中的相关引用），将上述两个文件放入。
+在 src 下新建 `assets/iconfont` 文件夹，将上述两个文件放入。
 
 修改 `iconfont.css` 文件的 `@font-face` 为：
 
@@ -436,3 +436,112 @@ const app = new Vue({
   };
 </script>
 ```
+
+## 配置 tabbar
+
+### 配置原生 tabbar
+
+查看 uniapp 文档：<https://uniapp.dcloud.io/collocation/pages?id=tabbar>
+
+**注意**：tabbar 文件夹必须放到 `static` 文件夹下。
+
+首先在 `pages` 下新建 `home/home.vue` 页面，构成 tabbar 切换所需的页面。
+
+然后更改 `src/pages.json` 文件：
+
+```json
+{
+  "pages": [
+    //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+    {
+      "path": "pages/home/home",
+      "style": {
+        "navigationBarTitleText": "首页"
+      }
+    },
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "我的"
+      }
+    }
+  ],
+  "tabBar": {
+    "color": "#666666",
+    "selectedColor": "#CF311E",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "iconPath": "static/tabbar/home.png",
+        "selectedIconPath": "static/tabbar/home_sel.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/tabbar/me.png",
+        "selectedIconPath": "static/tabbar/me_sel.png",
+        "text": "我的"
+      }
+    ]
+  }
+}
+```
+
+### 配置自定义 tabBar
+
+配置 tabBar 文档：<https://www.uviewui.com/components/tabbar.html#%E5%AE%9E%E6%88%98%E6%95%99%E7%A8%8B>
+
+自定义 tabbar 场景，我们不建议在一个页面内通过几个组件，用`v-if`切换去模拟各个页面，而应该使用 uni-app 自带的 tabbar 系统，同时隐藏原生的 tabbar， 再引入自定导航栏，这样可以保证原有性能，同时又能自定义 tabbar，思路如下：
+
+1. 在 pages.json 中正常定义 tabbar 逻辑和字段，只需配置`tabBar`字段`list`中的`pagePath`(需以"/"开头)属性即可
+2. 在各个 tabbar 页面引入`u-tabbar`组件，组件会默认自动通过`uni.hideTabBar()`隐藏系统 tabbar
+3. 通过`vuex`引用同一份 tabbar 组件的`list`参数，这样可以做到修改某一个页面的`u-tabbar`数据，其他页面的`u-tabbar`也能同步更新
+4. 组件内部会自动处理各种跳转的逻辑，同时需要注意以下两点：
+
+- 要在`list`参数中配置`pagePath`路径，此路径为`pages.json`中定义的 tabbar 字段的路径
+- 此种方式，无需通过`v-model`绑定活动项，内部会自动进行判断和跳转
+
+我们为此做了一个演示`demo`，您可以在下载页找到对应的资源，下载运行即可，[点此跳转下载页](https://www.uviewui.com/components/resource.html)
+
+### Vuex 中的 tabbar.js 配置
+
+```js
+export const state = {
+  //tabBar
+  tabBar: [
+    {
+      iconPath: "/static/tabbar/home.png",
+      selectedIconPath: "/static/tabbar/home_sel.png",
+      text: "首页",
+      count: 0,
+      isDot: false,
+      pagePath: "/pages/home/home",
+    },
+    {
+      iconPath: "/static/tabbar/me.png",
+      selectedIconPath: "/static/tabbar/me_sel.png",
+      text: "我的",
+      count: 0,
+      isDot: false,
+      pagePath: "/pages/index/index",
+    },
+    // {
+    //   // iconfont 形式
+    //   iconPath: "account",
+    //   selectedIconPath: "account-fill",
+    //   text: "我的",
+    //   count: 0,
+    //   isDot: false,
+    //   pagePath: "/pages/user/index",
+    // },
+  ],
+};
+export const mutations = {};
+export const actions = {};
+```
+
+#### 二次封装 uView tabbar
+
+由于要每个根页面都引入 tabbar ，为了防止每次变更样式导致需要频繁修改。我们再二次封装一个 tabbar 组件。组件见 `src/components/hx-tabbar`
