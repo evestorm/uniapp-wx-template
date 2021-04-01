@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   data() {
     return {
@@ -20,9 +22,12 @@ export default {
     };
   },
   onLoad() {},
+  computed: {
+    ...mapState(["tabBar"]),
+  },
   methods: {
     bindClick() {
-      console.log(this.title);
+      console.log(this.title, this.tabBar);
     },
   },
 };

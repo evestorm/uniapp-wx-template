@@ -406,3 +406,33 @@ index.vue 中添加如下代码测试：
 ```html
 <view class="iconfont icon-*"></view>
 ```
+
+## 配置 Vuex
+
+见 `src/store` 文件夹。最后在 `src/main.js` 中引入：
+
+```js
+// vuex
+import store from "@/store";
+Vue.prototype.$store = store;
+
+// ...
+const app = new Vue({
+  ...App,
+  store,
+});
+```
+
+使用：
+
+```html
+<script>
+  export default {
+    methods: {
+      bindClick() {
+        console.log(this.title, this.tabBar);
+      },
+    },
+  };
+</script>
+```
