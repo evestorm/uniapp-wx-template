@@ -291,3 +291,84 @@ which node
 # $PATH是已有目录
 PATH="/usr/local/opt/node/bin:$PATH"
 ```
+
+## 引入 uVIew UI 组件库
+
+组件库使用到了专为 uni-app 定制的第三方 UI 库 [uView](https://www.uviewui.com/)
+
+### 安装依赖
+
+```shell
+# 安装
+npm install uview-ui
+
+# 更新
+npm update uview-ui
+```
+
+### 版本查询
+
+```js
+console.log(this.$u.config.v);
+// 或者(二者等价)
+console.log(this.$u.config.version);
+```
+
+### 配置
+
+文档：<https://www.uviewui.com/components/npmSetting.html#_1-%E5%BC%95%E5%85%A5uview%E4%B8%BBjs%E5%BA%93>
+
+#### 引入 uView 主 JS 库
+
+> main.js
+
+放在 `import Vue` 之后:
+
+```js
+// main.js
+import uView from "uview-ui";
+Vue.use(uView);
+```
+
+#### 引入 uView 的全局 SCSS 主题文件
+
+在项目根目录的 uni.scss 中引入此文件。
+
+```css
+/* uni.scss */
+@import "uview-ui/theme.scss";
+```
+
+#### 引入 uView 基础样式
+
+> 在 App.vue 中首行的位置引入，注意给 style 标签加入 lang="scss"属性
+
+```html
+<style lang="scss">
+  /* 注意要写在第一行，同时给style标签加入lang="scss"属性 */
+  @import "uview-ui/index.scss";
+</style>
+```
+
+#### 配置 easycom 组件模式
+
+此配置需要在项目根目录的 pages.json 中进行。
+
+```json
+{
+  "easycom": {
+    // uView 规则如下配置
+    "^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+  },
+
+  "pages": []
+}
+```
+
+#### 测试组件是否正常工作
+
+index.vue 中添加如下代码测试：
+
+```html
+<u-icon name="photo"></u-icon>
+```

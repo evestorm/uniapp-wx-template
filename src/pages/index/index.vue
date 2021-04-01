@@ -3,7 +3,10 @@
     <image class="logo" src="/static/logo.png"></image>
     <view>
       <text class="title">{{ title }}</text>
+      <!-- uni 组件 -->
       <uni-badge text="2" type="success" @click="bindClick"></uni-badge>
+      <!-- uView 组件 -->
+      <u-icon name="photo"></u-icon>
     </view>
   </view>
 </template>
