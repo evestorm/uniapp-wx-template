@@ -1,12 +1,13 @@
 <template>
   <view class="content">
-    <image class="logo" src="/static/logo.png"></image>
     <view>
       <text class="title">{{ title }}</text>
       <!-- uni 组件 -->
       <uni-badge text="2" type="success" @click="bindClick"></uni-badge>
       <!-- uView 组件 -->
       <u-icon name="photo"></u-icon>
+      <!-- iconfont 子图图标 -->
+      <view class="icon iconfont icon-edit"></view>
     </view>
   </view>
 </template>
@@ -33,12 +34,6 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.logo {
-  width: 100rpx;
-  height: 100rpx;
-  margin: 200rpx auto 50rpx auto;
 }
 
 .text-area {

@@ -372,3 +372,37 @@ index.vue 中添加如下代码测试：
 ```html
 <u-icon name="photo"></u-icon>
 ```
+
+## 引入 iconfont
+
+在 iconfont 下载字体，只需用到三个文件：
+
+- iconfont.ttf 字体文件
+- iconfont.css css 文件
+
+在 src 下新建 `assets/iconfont` 文件夹（删除原来的 static 文件夹及其项目中的相关引用），将上述两个文件放入。
+
+修改 `iconfont.css` 文件的 `@font-face` 为：
+
+```css
+@font-face {
+  font-family: "iconfont";
+  src: url("~@/assets/iconfont/iconfont.ttf") format("truetype");
+}
+```
+
+最后在 `src/App.vue` 文件中引入 `iconfont.css` :
+
+```html
+<style lang="scss">
+  // 引入 iconfont 字体样式
+  @import "@/assets/iconfont/iconfont.css";
+  // ...
+</style>
+```
+
+使用方式：
+
+```html
+<view class="iconfont icon-*"></view>
+```
