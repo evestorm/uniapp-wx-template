@@ -24,7 +24,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 .content {
   display: flex;
   flex-direction: column;
@@ -33,8 +33,8 @@ export default {
 }
 
 .logo {
-  height: 200rpx;
-  width: 200rpx;
+  width: 100rpx;
+  height: 100rpx;
   margin: 200rpx auto 50rpx auto;
 }
 

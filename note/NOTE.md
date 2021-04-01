@@ -190,7 +190,7 @@ npm run dev:mp-weixin
 - [Color Highlight](https://link.juejin.im/?target=https://marketplace.visualstudio.com/items?itemName=naumovs.color-highlight)，识别代码中的颜色，包括各种颜色格式。
 - [Bracket Pair Colorizer Bracket Pair Colorizer 2](https://marketplace.visualstudio.com/items?itemName=CoenraadS.bracket-pair-colorizer-2)，识别代码中的各种括号，并且标记上不同的颜色，方便你扫视到匹配的括号。
 
-## ESLint + Prettier 配置
+## ESLint + Prettier + StyleLint 配置
 
 终端执行：
 
@@ -211,6 +211,26 @@ vue add eslint
 ### 配置 .prettierrc.js 文件
 
 在项目根目录下新建 `.prettierrc.js`，配置见文件。
+
+### 配置 .stylelintrc.js 文件
+
+> 安装依赖
+
+```shell
+npm install -D stylelint stylelint-config-standard stylelint-config-rational-order stylelint-prettier stylelint-config-prettier
+```
+
+[stylelint-config-standard：](https://github.com/stylelint/stylelint-config-standard) 官网提供的 css 标准
+
+[stylelint-config-recess-order：](https://github.com/stormwarning/stylelint-config-recess-order) 属性排列顺序
+
+[stylelint-prettier：](https://www.npmjs.com/package/stylelint-prettier) 基于 `prettier` 代码风格的 `stylelint` 规则
+
+[stylelint-config-prettier：](https://www.npmjs.com/package/stylelint-config-prettier) 禁用所有与格式相关的 Stylelint 规则，解决 prettier 与 stylelint 规则冲突，确保将其放在 `extends` 队列最后，这样它将覆盖其他配置。
+
+> 配置文件
+
+在项目根目录下新建 `.stylelintrc.js` 文件，配置见文件。
 
 ## 配置 lint-staged + husky 限制提交
 

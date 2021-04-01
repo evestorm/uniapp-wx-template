@@ -33,7 +33,6 @@ module.exports = {
     },
   ],
   // rangeEnd: "Infinity", // default:Infinity 不要配置，会导致vscode无法格式化
-
   //  文档：https://prettier.io/docs/en/options.html
   //  翻译博客：https://blog.csdn.net/ganyingxie123456/article/details/105957586
 };
