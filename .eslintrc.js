@@ -33,7 +33,7 @@ module.exports = {
         proseWrap: "preserve", // 不包装 markdown text default:"preserve"
         htmlWhitespaceSensitivity: "strict", // HTML空白敏感性 default:"css"
         vueIndentScriptAndStyle: false, // 缩进vue文件中的script和style标签 false:不缩进Vue文件中的脚本和样式标签 | true - 缩进Vue文件中的脚本和样式标签 默认false
-        endOfLine: "lf", // 设置统一的行结尾样式 "lf": 仅换行（\ n），在Linux和macOS以及git repos内部通用 | "crlf": 回车符+换行符（\ r \ n），在Windows上很常见 | "cr" - 仅回车符（\ r），很少使用 | "auto" - 保持现有的行尾（通过查看第一行后的内容对一个文件中的混合值进行归一化）
+        endOfLine: "auto", // 设置统一的行结尾样式 "lf": 仅换行（\ n），在Linux和macOS以及git repos内部通用 | "crlf": 回车符+换行符（\ r \ n），在Windows上很常见 | "cr" - 仅回车符（\ r），很少使用 | "auto" - 保持现有的行尾（通过查看第一行后的内容对一个文件中的混合值进行归一化）地址：https://stackoverflow.com/questions/53516594/why-do-i-keep-getting-delete-cr-prettier-prettier
         embeddedLanguageFormatting: "auto", // default:"auto"
       },
     ],
