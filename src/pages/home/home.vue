@@ -1,8 +1,7 @@
 <template>
   <view>
     <view>{{ title }}</view>
-    <!--    tabBar  -->
-    <!-- <hx-tabbar :list="tabBar"></hx-tabbar> -->
+    <u-button type="error" size="medium" class="hx-btn" @click="gotoSubPage">危险按钮</u-button>
   </view>
 </template>
 

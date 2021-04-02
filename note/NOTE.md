@@ -505,7 +505,7 @@ const app = new Vue({
 
 我们为此做了一个演示`demo`，您可以在下载页找到对应的资源，下载运行即可，[点此跳转下载页](https://www.uviewui.com/components/resource.html)
 
-### Vuex 中的 tabbar.js 配置
+#### Vuex 中的 tabbar.js 配置
 
 ```js
 export const state = {
@@ -545,3 +545,48 @@ export const actions = {};
 #### 二次封装 uView tabbar
 
 由于要每个根页面都引入 tabbar ，为了防止每次变更样式导致需要频繁修改。我们再二次封装一个 tabbar 组件。组件见 `src/components/hx-tabbar`
+
+## 分包加载
+
+由于小程序[分包](https://developers.weixin.qq.com/miniprogram/dev/framework/subpackages.html)大小有以下限制：
+
+- 整个小程序所有分包大小不超过 20M
+- 单个分包/主包大小不能超过 2M
+
+所以我们需要对页面进行分包，`pages.json`中的书写结构如下：
+
+```json
+{
+  ...,
+  "pages": [
+    //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+    {
+      "path": "pages/home/home",
+      "style": {
+        "navigationBarTitleText": "首页"
+      }
+    },
+    {
+      "path": "pages/message/message",
+      "style": {
+        "navigationBarTitleText": "消息"
+      }
+    },
+  ],
+  "subPackages": [
+    {
+      "root": "pages/homeSub",
+      "pages": [
+        {
+          "path": "subPage/subPage",
+          "style": {
+            "navigationBarTitleText": "二级页面2"
+          }
+        }
+      ]
+    }
+  ],
+}
+```
+
+也就是说，只要是 home 首页下的二级页面，都可以放进 `homeSub` 目录下。

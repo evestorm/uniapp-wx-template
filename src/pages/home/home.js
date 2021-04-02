@@ -9,4 +9,11 @@ export default {
   computed: {
     ...mapState(["tabBar"]),
   },
+  methods: {
+    gotoSubPage() {
+      uni.navigateTo({
+        url: `/pages/homeSub/subPage/subPage?title=${this.title}`,
+      });
+    },
+  },
 };

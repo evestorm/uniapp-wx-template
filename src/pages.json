@@ -35,6 +35,19 @@
       }
     }
   ],
+  "subPackages": [
+    {
+      "root": "pages/homeSub",
+      "pages": [
+        {
+          "path": "subPage/subPage",
+          "style": {
+            "navigationBarTitleText": "二级页面2"
+          }
+        }
+      ]
+    }
+  ],
   "globalStyle": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",

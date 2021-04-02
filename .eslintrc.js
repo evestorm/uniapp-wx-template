@@ -7,6 +7,10 @@ module.exports = {
   parserOptions: {
     parser: "babel-eslint",
   },
+  globals: {
+    // 忽略 uni 全局变量
+    uni: true,
+  },
   rules: {
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",

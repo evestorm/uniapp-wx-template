@@ -1,8 +1,6 @@
 <template>
   <view class="content">
     <view>{{ title }}</view>
-    <!--    tabBar  -->
-    <!-- <hx-tabbar :list="tabBar"></hx-tabbar> -->
   </view>
 </template>
 

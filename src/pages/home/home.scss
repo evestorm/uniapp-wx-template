@@ -1,16 +1,4 @@
-.content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.text-area {
-  display: flex;
-  justify-content: center;
-}
-
-.title {
-  font-size: 36rpx;
-  color: #8f8f94;
+// 推荐给组件添加一个 class ，然后 className /deep/ 组件内className 的形式覆盖样式
+.hx-btn /deep/ .u-btn {
+  border-radius: 40rpx;
 }

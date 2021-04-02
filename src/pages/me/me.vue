@@ -9,8 +9,6 @@
       <!-- iconfont 子图图标 -->
       <view class="icon iconfont icon-edit"></view>
     </view>
-    <!--    tabBar  -->
-    <!-- <hx-tabbar :list="tabBar"></hx-tabbar> -->
   </view>
 </template>
 
