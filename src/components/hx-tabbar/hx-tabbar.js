@@ -2,6 +2,7 @@ export default {
   data() {
     return {};
   },
+  mounted() {},
   props: {
     list: {
       type: Array,

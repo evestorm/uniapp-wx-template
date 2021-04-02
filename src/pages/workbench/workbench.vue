@@ -1,13 +1,13 @@
 <template>
-  <view>
+  <view class="content">
     <view>{{ title }}</view>
     <!--    tabBar  -->
     <!-- <hx-tabbar :list="tabBar"></hx-tabbar> -->
   </view>
 </template>
 
-<script src="./home.js"></script>
+<script src="./workbench.js"></script>
 
 <style lang="scss" scoped>
-@import "./home";
+@import "./workbench";
 </style>
