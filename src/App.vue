@@ -20,4 +20,7 @@ export default {
 
 // 引入 iconfont 字体样式
 @import "@/assets/iconfont/iconfont.css";
+
+// 引入 自定义内置样式
+@import "@/assets/css/main.css";
 </style>

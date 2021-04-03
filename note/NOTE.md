@@ -271,7 +271,7 @@ TIPS: 提示：husky 目前 5 版本不正常，如果安装完后项目根目�
 
 解决办法：<https://www.jianshu.com/p/e70d735358eb>
 
-**大概步骤**
+##### 大概步骤
 
 首先打印你的 node 目录：
 
@@ -590,3 +590,18 @@ export const actions = {};
 ```
 
 也就是说，只要是 home 首页下的二级页面，都可以放进 `homeSub` 目录下。
+
+## 内置样式
+
+在 `src/assets` 目录下新建 `css` 文件夹，放置 `main.css` 文件。
+
+最后在 `App.vue` 的 style 标签中引入：
+
+```html
+<style lang="scss">
+  // ...
+
+  // 引入 自定义内置样式
+  @import "@/assets/css/main.css";
+</style>
+```

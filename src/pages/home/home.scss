@@ -2,3 +2,88 @@
 .hx-btn /deep/ .u-btn {
   border-radius: 40rpx;
 }
+
+// header
+.header {
+  height: 138rpx;
+  background: #fff;
+  box-shadow: 0 2px 20px 0 rgba(207, 49, 30, 0.1);
+
+  .header-left {
+    .avatar {
+      width: 88rpx;
+      height: 88rpx;
+      background: linear-gradient(0deg, #cf311e 0%, #ff4800 100%) !important;
+      border: 5rpx solid #cf311e;
+      border-radius: 50%;
+    }
+
+    .info {
+      .name-wrapper {
+        .name {
+          font-family: PingFang SC;
+          font-size: 30rpx;
+          font-weight: bold;
+          color: #333;
+        }
+
+        .cert {
+          .img {
+            width: 24rpx;
+            height: 29rpx;
+          }
+
+          font-family: PingFang SC;
+          font-size: 24rpx;
+          font-weight: 500;
+          color: #cf311e;
+        }
+      }
+
+      .phone {
+        font-family: PingFang SC;
+        font-size: 28rpx;
+        font-weight: bold;
+        color: #333;
+      }
+    }
+  }
+
+  .header-right {
+    .btn-wrapper {
+      .btn-inner {
+        width: 134rpx;
+        height: 44rpx;
+        background: #cf311e;
+        border-radius: 22rpx;
+
+        .img {
+          position: relative;
+          top: -2rpx;
+          width: 25rpx;
+          height: 26rpx;
+        }
+
+        .text {
+          font-family: PingFang SC;
+          font-size: 26rpx;
+          font-weight: 500;
+          color: #fff;
+        }
+      }
+    }
+
+    .score-wrapper {
+      .desc {
+        font-family: PingFang SC;
+        font-size: 24rpx;
+        font-weight: 500;
+        color: #666;
+      }
+
+      .score {
+        color: #cf311e;
+      }
+    }
+  }
+}

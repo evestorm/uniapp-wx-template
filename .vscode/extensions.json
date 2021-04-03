@@ -1,34 +1,35 @@
 {
-    "recommendations": [
-        "octref.vetur", // Vue 开发工具
-        "esbenp.prettier-vscode", // 代码格式化工具
-        "dbaeumer.vscode-eslint", // JS 代码审查工具
-        "stylelint.vscode-stylelint", // CSS 代码审查工具
-        "DavidAnson.vscode-markdownlint", // Markdown 代码审查工具
-        "abusaidm.html-snippets", // HTML 代码智能提示
-        "xabikos.JavaScriptSnippets", // ES6 代码智能提示
-        "nikhilkumar80.js-patterns-snippets", // JavaScript 代码提示
-        "formulahendry.auto-close-tag", // 在打开标签并且键入 `</` 的时候，能自动补全要闭合的标签
-        "formulahendry.auto-rename-tag", // 在修改标签名时，能在你修改开始（结束）标签的时候修改对应的结束（开始）标签
-        "christian-kohler.path-intellisense", // 文件路径补全，在你用任何方式引入文件系统中的路径时提供智能提示和自动完成
-        "christian-kohler.npm-intellisense", // NPM 依赖补全，在你引入任何 node_modules 里面的依赖包时提供智能提示和自动完成
-        "steoates.autoimport", // 自动查找、解析并提供所有可导入（import）的代码文件
-        "aaron-bond.better-comments", // 代码注释高亮
-        "meganrogge.template-string-converter", // 字符串中添加变量时，自动转为模板字符串形式
-        "sdras.vue-vscode-snippets", // Vue 代码补全
-        "streetsidesoftware.code-spell-checker", // 代码拼写检查
-        "donjayamanne.githistory", // 查看文件 Git 历史记录
-        "ritwickdey.LiveServer", // 开启本地服务器
-        "eamodio.gitlens", // Git 源代码管理工具
-        "wayou.vscode-todo-highlight", // 维护时间稍长的代码仓库免不了会有各种 TODO、FIXME、HACK 之类的标记，TODO Highlight 能够帮我们把这些关键词高亮出来，在你翻阅代码时非常醒目，就像是在大声提醒你尽快把他解决掉。支持自定义配置需要高亮的关键词，实际使用比较坑的地方是，TODO、FIXME 之类的后面必须加上冒号，否则无法高亮。
-        "naumovs.color-highlight", // 识别代码中的颜色，包括各种颜色格式
-        "CoenraadS.bracket-pair-colorizer-2", // 识别代码中的各种括号，并且标记上不同的颜色，方便你扫视到匹配的括号
-        "formulahendry.code-runner", // 代码一键运行
-        "ionutvmi.path-autocomplete", // 为 VSCode 提供路径完成代码
-        "shenjiaolong.vue-helper", // 提高vue开发效率，在vue单文件可实现跳转方法定义
-    ],
-    "unwantedRecommendations": [
-        "yoyo930021.vuter", // octref.vetur 的分支
-        "HookyQR.beautify", // 代码格式化工具
-    ]
+  "recommendations": [
+    "octref.vetur", // Vue 开发工具
+    "esbenp.prettier-vscode", // 代码格式化工具
+    "dbaeumer.vscode-eslint", // JS 代码审查工具
+    "stylelint.vscode-stylelint", // CSS 代码审查工具
+    "DavidAnson.vscode-markdownlint", // Markdown 代码审查工具
+    "abusaidm.html-snippets", // HTML 代码智能提示
+    "xabikos.JavaScriptSnippets", // ES6 代码智能提示
+    "nikhilkumar80.js-patterns-snippets", // JavaScript 代码提示
+    "formulahendry.auto-close-tag", // 在打开标签并且键入 `</` 的时候，能自动补全要闭合的标签
+    "formulahendry.auto-rename-tag", // 在修改标签名时，能在你修改开始（结束）标签的时候修改对应的结束（开始）标签
+    "christian-kohler.path-intellisense", // 文件路径补全，在你用任何方式引入文件系统中的路径时提供智能提示和自动完成
+    "christian-kohler.npm-intellisense", // NPM 依赖补全，在你引入任何 node_modules 里面的依赖包时提供智能提示和自动完成
+    "steoates.autoimport", // 自动查找、解析并提供所有可导入（import）的代码文件
+    "aaron-bond.better-comments", // 代码注释高亮
+    "meganrogge.template-string-converter", // 字符串中添加变量时，自动转为模板字符串形式
+    "sdras.vue-vscode-snippets", // Vue 代码补全
+    "streetsidesoftware.code-spell-checker", // 代码拼写检查
+    "donjayamanne.githistory", // 查看文件 Git 历史记录
+    "ritwickdey.LiveServer", // 开启本地服务器
+    "eamodio.gitlens", // Git 源代码管理工具
+    "wayou.vscode-todo-highlight", // 维护时间稍长的代码仓库免不了会有各种 TODO、FIXME、HACK 之类的标记，TODO Highlight 能够帮我们把这些关键词高亮出来，在你翻阅代码时非常醒目，就像是在大声提醒你尽快把他解决掉。支持自定义配置需要高亮的关键词，实际使用比较坑的地方是，TODO、FIXME 之类的后面必须加上冒号，否则无法高亮。
+    "naumovs.color-highlight", // 识别代码中的颜色，包括各种颜色格式
+    "CoenraadS.bracket-pair-colorizer-2", // 识别代码中的各种括号，并且标记上不同的颜色，方便你扫视到匹配的括号
+    "formulahendry.code-runner", // 代码一键运行
+    "ionutvmi.path-autocomplete", // 为 VSCode 提供路径完成代码
+    "shenjiaolong.vue-helper", // 提高vue开发效率，在vue单文件可实现跳转方法定义
+    "dlhtx.uniapp-snippet" // uniapp 代码提示
+  ],
+  "unwantedRecommendations": [
+    "yoyo930021.vuter", // octref.vetur 的分支
+    "HookyQR.beautify" // 代码格式化工具
+  ]
 }
