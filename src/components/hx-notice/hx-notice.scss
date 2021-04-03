@@ -1,0 +1,54 @@
+.hx-notice {
+  position: relative;
+  width: 100%;
+  height: 40rpx;
+  padding: 0 10rpx;
+  overflow: hidden;
+  line-height: 40rpx;
+  background: #f1f1f1;
+  border-radius: 30rpx;
+
+  .img {
+    position: absolute;
+    top: 50%;
+    left: 20rpx;
+    z-index: 1;
+    width: 22rpx;
+    height: 25rpx;
+    transform: translateY(-50%);
+  }
+
+  .title {
+    position: absolute;
+    top: 50%;
+    left: 45rpx;
+    z-index: 1;
+    font-family: HYGangYiTi;
+    font-size: 26rpx;
+    font-style: italic;
+    font-weight: normal;
+    color: #cf311e;
+    transform: translateY(-50%);
+  }
+
+  .desc {
+    // 这一句很重要，为了能让滚动左右连接起来
+    padding-left: 100%;
+    font-size: 26rpx;
+    line-height: 40rpx;
+    text-align: right;
+    white-space: nowrap;
+    background-color: bisque;
+    animation: u-loop-animation 10s linear infinite both;
+  }
+
+  @keyframes u-loop-animation {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+
+    100% {
+      transform: translate3d(-100%, 0, 0);
+    }
+  }
+}

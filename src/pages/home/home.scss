@@ -87,3 +87,146 @@
     }
   }
 }
+
+// banner
+.banner-wrapper /deep/ .u-swiper-wrap {
+  box-shadow: 0 5px 10px 0 rgba(207, 49, 30, 0.1);
+}
+
+// menu
+.menu-wrapper {
+  .item {
+    .img {
+      width: 120rpx;
+      height: 120rpx;
+    }
+
+    .name {
+      font-family: PingFang SC;
+      font-size: 26rpx;
+      font-weight: 500;
+      color: #666;
+    }
+  }
+}
+
+// notice
+.notice-wrapper /deep/ .u-notice-bar-wrap {
+  margin: 20rpx 30rpx;
+
+  .u-icon-wrap:first-of-type {
+    position: relative;
+
+    &::after {
+      font-family: HYGangYiTi;
+      font-size: 26rpx;
+      font-style: italic;
+      font-weight: bolder;
+      color: #cf311e;
+      content: "消息通知";
+    }
+  }
+
+  .u-icon__icon {
+    color: #cf311e !important;
+    // 改 icon 图标
+    &::before {
+      content: "\e609";
+    }
+  }
+}
+
+// recommend
+.recommend-wrapper {
+  & > .title {
+    position: relative;
+    padding-left: 15rpx;
+    font-family: PingFang SC;
+    font-size: 28rpx;
+    font-weight: bold;
+    color: #333;
+
+    &::before {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 8rpx;
+      height: 28rpx;
+      background: #cf311e;
+      border-radius: 4rpx;
+      content: "";
+      transform: translateY(-50%);
+    }
+  }
+
+  .list {
+    .card {
+      .info {
+        width: 270rpx;
+        height: 180rpx;
+        overflow: hidden !important;
+        background: #f1f1f1;
+        border-radius: 10rpx !important;
+
+        .img {
+          display: block;
+          width: 100%;
+          overflow: hidden;
+          border-radius: 10rpx;
+        }
+      }
+
+      .detail {
+        height: 170rpx;
+
+        .title {
+          font-family: PingFang SC;
+          font-size: 28rpx;
+          font-weight: 500;
+          line-height: 46rpx;
+          color: #333;
+        }
+
+        .rest {
+          margin-top: 5rpx;
+          margin-bottom: auto;
+          font-family: PingFang SC;
+          font-size: 26rpx;
+          font-weight: 500;
+          color: #777;
+        }
+
+        .bottom {
+          .new-score {
+            font-family: PingFang SC;
+            font-size: 36rpx;
+            font-weight: bold;
+            color: #cf311e;
+
+            span {
+              font-size: 24rpx;
+            }
+          }
+
+          .old-score {
+            width: 52px;
+            font-family: PingFang SC;
+            font-size: 26rpx;
+            font-weight: 500;
+            color: #999;
+            text-decoration: line-through;
+          }
+
+          .btn {
+            width: 158rpx;
+            height: 50rpx;
+            color: #fff;
+            background: #cf311e;
+            border-radius: 25rpx;
+            box-shadow: 1rpx 2rpx 20rpx 0rpx rgba(207, 49, 30, 0.2);
+          }
+        }
+      }
+    }
+  }
+}
