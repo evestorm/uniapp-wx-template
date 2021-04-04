@@ -1,5 +1,7 @@
 import { mapState } from "vuex";
 
+import home from "@/api/home/newsService";
+
 export default {
   data() {
     return {
@@ -62,11 +64,21 @@ export default {
   computed: {
     ...mapState(["tabBar"]),
   },
+  mounted() {
+    this.getNews();
+  },
   methods: {
     gotoSubPage() {
       uni.navigateTo({
         url: `/pages/homeSub/subPage/subPage?title=${this.title}`,
       });
+    },
+    async getNews() {
+      console.log(home);
+      let result = await home.getNews();
+      if (result) {
+        console.log(result);
+      }
     },
   },
 };

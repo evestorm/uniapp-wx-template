@@ -10,6 +10,8 @@ module.exports = {
   globals: {
     // 忽略 uni 全局变量
     uni: true,
+    getCurrentPages: true,
+    getApp: true,
   },
   rules: {
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
