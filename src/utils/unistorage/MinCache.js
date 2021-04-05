@@ -1,5 +1,5 @@
 let cacheMap = new Map();
-let timeoutDefault = 1200;
+let timeoutDefault = 0;
 
 /**
  * @description 是否超时
@@ -14,12 +14,13 @@ function isTimeout(name) {
   const overTime = (currentTime - data.createTime) / 1000;
   if (overTime > data.timeout) {
     cacheMap.delete(name);
-    try {
-      uni.removeStorageSync(name);
-    } catch (e) {
-      console.log(e);
+    if (name.startsWith("_")) {
+      try {
+        uni.removeStorageSync(name);
+      } catch (e) {
+        console.log(e);
+      }
     }
-
     return true;
   }
   return false;
@@ -57,13 +58,17 @@ class MinCache {
     timeoutDefault = timeout;
   }
   set(name, data, timeout = timeoutDefault) {
-    const cachecell = new CacheCell(data, timeout);
+    const cacheCell = new CacheCell(data, timeout);
     let cache = null;
-    try {
-      uni.setStorageSync(name, cachecell);
-      cache = cacheMap.set(name, cachecell);
-    } catch (e) {
-      console.log(e);
+    if (name.startsWith("_")) {
+      try {
+        uni.setStorageSync(name, cacheCell);
+        cache = cacheMap.set(name, cacheCell);
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      cache = cacheMap.set(name, cacheCell);
     }
     return cache;
   }
@@ -72,11 +77,15 @@ class MinCache {
   }
   delete(name) {
     let value = false;
-    try {
-      uni.removeStorageSync(name);
+    if (name.startsWith("_")) {
+      try {
+        uni.removeStorageSync(name);
+        value = cacheMap.delete(name);
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
       value = cacheMap.delete(name);
-    } catch (e) {
-      console.log(e);
     }
     return value;
   }
@@ -96,7 +105,7 @@ class MinCache {
   }
 }
 
-MinCache.install = function (Vue, { timeout = 1200 } = {}) {
+MinCache.install = function (Vue, { timeout = 0 } = {}) {
   Vue.prototype.$cache = new MinCache(timeout);
 };
 

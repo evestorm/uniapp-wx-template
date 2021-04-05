@@ -605,3 +605,9 @@ export const actions = {};
   @import "@/assets/css/main.css";
 </style>
 ```
+
+## 网络请求封装
+
+见 `src/utils/MinRequest.js` 和 `src/utils/request.js`
+
+接口都放在 `src/api` 下。

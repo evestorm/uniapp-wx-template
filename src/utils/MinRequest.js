@@ -56,7 +56,6 @@ class MinRequest {
     options.method = options.method || this[config].method;
 
     options = { ...options, ...MinRequest[requestBefore](options) };
-
     return new Promise((resolve, reject) => {
       options.success = function (res) {
         resolve(MinRequest[requestAfter](res));
