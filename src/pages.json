@@ -46,6 +46,50 @@
           }
         }
       ]
+    },
+    {
+      "root": "pages/meSub/",
+      "pages": [
+        // {
+        //   "path": "subPage/subPage",
+        //   "style": {
+        //     "navigationBarTitleText": "二级页面2"
+        //   }
+        // }
+      ]
+    },
+    {
+      "root": "pages/messageSub",
+      "pages": [
+        // {
+        //   "path": "subPage/subPage",
+        //   "style": {
+        //     "navigationBarTitleText": "二级页面2"
+        //   }
+        // }
+      ]
+    },
+    {
+      "root": "pages/workbenchSub",
+      "pages": [
+        // {
+        //   "path": "subPage/subPage",
+        //   "style": {
+        //     "navigationBarTitleText": "二级页面2"
+        //   }
+        // }
+      ]
+    },
+    {
+      "root": "pages/common",
+      "pages": [
+        {
+          "path": "auth/auth",
+          "style": {
+            "navigationBarTitleText": "登录授权"
+          }
+        }
+      ]
     }
   ],
   "globalStyle": {
