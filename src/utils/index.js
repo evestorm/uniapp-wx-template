@@ -90,26 +90,6 @@ export function formatTime(time, option) {
 }
 
 /**
- *
- * @param {string} msg 消息
- * @param {number} duration 时间
- * @param {string} image 图片路径
- * @param {string} icon icon图标
- */
-export function showToastMsg(msg, duration, image, icon) {
-  msg = msg || "success!";
-  duration = duration || 1000;
-  image = image || "";
-  icon = icon || "success";
-  uni.showToast({
-    title: msg,
-    icon: icon,
-    duration: duration,
-    image: image,
-  });
-}
-
-/**
  * ! ---------------------- 字符串相关 ----------------------
  */
 
@@ -252,14 +232,9 @@ export function html2Text(val) {
 }
 
 /**
- * @description 获得当前 URL
- * @example currentURL(); // 'https://google.com'
+ * @description 获取当前界面和完整参数
+ * @returns {string} url 返回url
  */
-export function currentURL() {
-  return window.location.href;
-}
-
-// 获取当前界面和完整参数
 export function getCurrentPageUrl() {
   let pages = getCurrentPages(); // 获取加载的页面
   let currentPage = pages[pages.length - 1]; // 获取当前页面的对象
@@ -267,7 +242,10 @@ export function getCurrentPageUrl() {
   return url;
 }
 
-// 获取当前页带参数的url
+/**
+ * @description 获取当前页带参数的url
+ * @returns {string} url 返回当前页带参数的url
+ */
 export function getCurrentPageUrlAndArgs() {
   let pages = getCurrentPages(); //获取加载的页面
   let currentPage = pages[pages.length - 1]; //获取当前页面的对象
@@ -286,43 +264,134 @@ export function getCurrentPageUrlAndArgs() {
   return urlWithArgs;
 }
 
-// 显示自定义图标
-export function showToastCancel(types, text) {
-  types = types || "cancel";
-  text = text || "错误!";
-  let image;
-  if (types == "cancel") {
-    image = "/static/toast/cancel.png";
-  } else if (types == "success") {
-    image = "/static/toast/success.png";
+/**
+ * ! ---------------------- 对象相关 ----------------------
+ */
+
+/**
+ * 合并两个对象，给出最后一个优先级
+ * @param {Object} target
+ * @param {(Object|Array)} source
+ * @returns {Object}
+ */
+export function objectMerge(target, source) {
+  if (typeof target !== "object") {
+    target = {};
   }
-  uni.showToast({
-    image: image,
-    icon: "none",
-    duration: 2000,
-    color: "#fff",
-    title: text,
-    mask: true,
+  if (Array.isArray(source)) {
+    return source.slice();
+  }
+  Object.keys(source).forEach(property => {
+    const sourceProperty = source[property];
+    if (typeof sourceProperty === "object") {
+      target[property] = objectMerge(target[property], sourceProperty);
+    } else {
+      target[property] = sourceProperty;
+    }
   });
+  return target;
 }
 
-// 预览图片 多个图片用,分割 比如 'img1','img2'
-export function previewImage(url) {
-  let imgArr = [];
-  imgArr.push(url);
-  uni.previewImage({
-    urls: imgArr,
+/**
+ * 这只是一个简单的版本的深拷贝
+ * 有很多边界情况的bug
+ * 如果你想用一个完美的深拷贝,使用 lodash 的 _.cloneDeep
+ * @param {Object} source
+ * @returns {Object}
+ */
+export function deepClone(source) {
+  if (!source && typeof source !== "object") {
+    throw new Error("error arguments", "deepClone");
+  }
+
+  const targetObj = source.constructor === Array ? [] : {};
+  Object.keys(source).forEach(keys => {
+    if (source[keys] && typeof source[keys] === "object") {
+      targetObj[keys] = deepClone(source[keys]);
+    } else {
+      targetObj[keys] = source[keys];
+    }
   });
+  return targetObj;
 }
-export function parseKm(num, n) {
-  if (!num) {
-    return "";
-  }
-  let m = 0;
-  if (num >= 1000) {
-    m = (num / 1000).toFixed(n) + "km";
+
+/**
+ * @description 判断目标是否为空对象
+ * @param {Object} obj 目标对象
+ */
+export function isEmptyObject(obj) {
+  if (Object.prototype.toString.call(obj) !== "[object Object]") return false;
+  return Object.keys(obj).length === 0;
+}
+
+/**
+ * ! ---------------------- 节流防抖相关 ----------------------
+ */
+
+/**
+ * @description: 防抖函数：函数被触发 n 秒后再执行回调，如果在这 n 秒内又被触发，则重新计时
+ * @param {Function} fn 要执行的函数
+ * @param {Number} delay  delay毫秒后执行回调
+ */
+export function debounce(fn, delay = 500) {
+  let timer = null;
+  return function () {
+    const context = this;
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+      fn.apply(context, arguments);
+      timer = null;
+    }, delay);
+  };
+}
+
+/**
+ * @description: 节流函数：规定一个单位时间，在这个单位时间内，只能有一次触发事件的回调函数执行
+ * @param {Function} fn 要执行的函数
+ * @param {Number} gapTime  单位时间
+ */
+export function throttle(fn, gapTime = 500) {
+  let canUse = true;
+  return function () {
+    if (canUse) {
+      fn.apply(this, arguments);
+      canUse = false;
+      setTimeout(() => (canUse = true), gapTime);
+    }
+  };
+}
+
+/**
+ * ! ---------------------- 交互相关 ----------------------
+ */
+
+/**
+ * @description 自定义toast
+ * @param {string} types 类型
+ * @param {string} msg 消息
+ * @param {number} duration 时间
+ */
+export function showToastCustom(types, msg, duration) {
+  types = types || "success";
+  msg = msg || "成功!";
+  duration = duration || 1000;
+  let img = "";
+  if (types === "success") {
+    // 成功
+    img = "/static/totast/round_check.png";
+  } else if (types === "error") {
+    // 失败
+    img = "/static/totast/round_close.png";
   } else {
-    m = num + "m";
+    // 警告
+    img = "/static/totast/round_info.png";
   }
-  return m;
+  uni.showToast({
+    title: msg,
+    icon: "none",
+    duration: duration,
+    image: img,
+  });
 }
