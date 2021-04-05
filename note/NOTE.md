@@ -611,3 +611,5 @@ export const actions = {};
 见 `src/utils/MinRequest.js` 和 `src/utils/request.js`
 
 接口都放在 `src/api` 下。
+
+工具 JS 放在 `src/utils/index.js` 下。
