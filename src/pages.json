@@ -44,6 +44,12 @@
           "style": {
             "navigationBarTitleText": "二级页面2"
           }
+        },
+        {
+          "path": "productsList/productsList",
+          "style": {
+            "navigationBarTitleText": "产品列表下拉刷新"
+          }
         }
       ]
     },

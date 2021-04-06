@@ -84,5 +84,10 @@ export default {
         url: "/pages/common/auth/auth",
       });
     },
+    gotoProductsList() {
+      uni.navigateTo({
+        url: "/pages/homeSub/productsList/productsList",
+      });
+    },
   },
 };

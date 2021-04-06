@@ -5,6 +5,7 @@ import storage from "./utils/unistorage/index";
 import MniRequest from "./utils/MinRequest";
 import interactiveFeedback from "@/utils/interactiveFeedback";
 import uniExtend from "@/utils/unExtends";
+import MescrollBody from "mescroll-uni/mescroll-body.vue";
 
 // vuex
 import store from "@/store";
@@ -25,6 +26,9 @@ Vue.use(MinCache);
 Vue.use(MniRequest);
 // 注册 交互反馈
 Vue.use(interactiveFeedback);
+
+// 使用 mescroll 组件
+Vue.component("mescroll-body", MescrollBody);
 
 // uni拓展
 uniExtend();

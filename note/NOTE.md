@@ -617,3 +617,30 @@ export const actions = {};
 ## 微信登录和授权
 
 TODO
+
+## 下拉刷新
+
+使用到了 uniapp 第三方插件 [Mescroll](https://ext.dcloud.net.cn/plugin?id=343)
+
+### 安装
+
+```shell
+npm install --save mescroll-uni
+```
+
+在 `main.js` 中引入组件：
+
+```js
+import MescrollBody from "mescroll-uni/mescroll-body.vue";
+
+// 使用 mescroll 组件
+Vue.component("mescroll-body", MescrollBody);
+```
+
+### 编写 demo
+
+demo 页在 `pages/homeSub/productsList` 下。顺便在 `src/components` 下新建 `good-list` 组件。
+
+### 更多用法
+
+见文档：<http://www.mescroll.com/uni.html>

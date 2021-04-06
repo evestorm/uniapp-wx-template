@@ -6,7 +6,7 @@
         <!-- 头像 -->
         <image class="avatar mr-2" src="https://placekitten.com/200/200" @click="gotoAuth" />
         <!-- 信息 -->
-        <view class="info d-flex flex-column">
+        <view class="info d-flex flex-column" @click="gotoProductsList">
           <view class="name-wrapper d-flex j-start a-center">
             <view class="name mr-2">张三三</view>
             <view class="cert d-flex a-center"><image class="img mr-1" src="/static/images/已认证.png" mode="" />已认证</view>
