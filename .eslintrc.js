@@ -12,6 +12,7 @@ module.exports = {
     uni: true,
     getCurrentPages: true,
     getApp: true,
+    wx: true,
   },
   rules: {
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",

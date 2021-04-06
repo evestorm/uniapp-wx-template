@@ -4,7 +4,7 @@
     <view class="header d-flex flex-nowrap j-sb a-center px-3 py-2">
       <view class="header-left d-flex j-start a-center">
         <!-- 头像 -->
-        <image class="avatar mr-2" src="https://placekitten.com/200/200" />
+        <image class="avatar mr-2" src="https://placekitten.com/200/200" @click="gotoAuth" />
         <!-- 信息 -->
         <view class="info d-flex flex-column">
           <view class="name-wrapper d-flex j-start a-center">

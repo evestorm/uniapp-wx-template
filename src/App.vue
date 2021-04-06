@@ -1,5 +1,15 @@
 <script>
 export default {
+  // 全局对象
+  globalData: {
+    appid: "wxe0c5639c8139419d",
+    canIUseGetUserInfo() {
+      return uni.canIUse("button.open-type.getUserInfo"); // 判断小程序api是否能够在当前版本使用
+    },
+    canIUseGetUserProfile() {
+      return uni.canIUse("getUserProfile"); // 判断小程序api是否能够在当前版本使用
+    },
+  },
   onLaunch: function () {
     console.log("App Launch");
   },

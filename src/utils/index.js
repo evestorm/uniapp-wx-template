@@ -362,36 +362,3 @@ export function throttle(fn, gapTime = 500) {
     }
   };
 }
-
-/**
- * ! ---------------------- 交互相关 ----------------------
- */
-
-/**
- * @description 自定义toast
- * @param {string} types 类型
- * @param {string} msg 消息
- * @param {number} duration 时间
- */
-export function showToastCustom(types, msg, duration) {
-  types = types || "success";
-  msg = msg || "成功!";
-  duration = duration || 1000;
-  let img = "";
-  if (types === "success") {
-    // 成功
-    img = "/static/totast/round_check.png";
-  } else if (types === "error") {
-    // 失败
-    img = "/static/totast/round_close.png";
-  } else {
-    // 警告
-    img = "/static/totast/round_info.png";
-  }
-  uni.showToast({
-    title: msg,
-    icon: "none",
-    duration: duration,
-    image: img,
-  });
-}

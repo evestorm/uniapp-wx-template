@@ -12,6 +12,7 @@ class MinRequest {
     method: "GET",
     dataType: "json",
     responseType: "text",
+    timeout: "120000", // 单位：ms 默认120s
   };
 
   interceptors = {

@@ -74,11 +74,15 @@ export default {
       });
     },
     async getNews() {
-      console.log(home);
       let result = await home.getNews();
       if (result) {
         console.log(result);
       }
+    },
+    gotoAuth() {
+      uni.navigateTo({
+        url: "/pages/common/auth/auth",
+      });
     },
   },
 };

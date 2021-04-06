@@ -3,6 +3,8 @@ import App from "./App";
 import MinCache from "./utils/unistorage/MinCache";
 import storage from "./utils/unistorage/index";
 import MniRequest from "./utils/MinRequest";
+import interactiveFeedback from "@/utils/interactiveFeedback";
+import uniExtend from "@/utils/unExtends";
 
 // vuex
 import store from "@/store";
@@ -21,6 +23,11 @@ Vue.prototype.$store = store;
 Vue.use(MinCache);
 // 注册请求
 Vue.use(MniRequest);
+// 注册 交互反馈
+Vue.use(interactiveFeedback);
+
+// uni拓展
+uniExtend();
 
 // 扩展vue原型属性
 prototypeEx(Vue);

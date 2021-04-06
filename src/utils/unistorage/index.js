@@ -1,4 +1,6 @@
-import uStorage from "./MinCache";
+import MinCache from "./MinCache";
+
+const uStorage = new MinCache();
 
 const prefix = "HX.";
 
@@ -19,8 +21,8 @@ const storage = {
   // 设置用户信息
   setUserInfo(userInfo) {
     // 设置全局用户信息
-    getApp().globalData.userInfo = userInfo;
-    getApp().globalData.LoginUserId = userInfo.id;
+    // getApp().globalData.userInfo = userInfo;
+    // getApp().globalData.LoginUserId = userInfo.id;
     return uStorage.set(prefix + "UserInfo", userInfo);
   },
   // 获取用户信息
