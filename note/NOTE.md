@@ -613,3 +613,7 @@ export const actions = {};
 接口都放在 `src/api` 下。
 
 工具 JS 放在 `src/utils/index.js` 下。
+
+## 微信登录和授权
+
+TODO
