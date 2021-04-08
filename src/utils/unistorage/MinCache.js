@@ -14,7 +14,7 @@ function isTimeout(name) {
   const overTime = (currentTime - data.createTime) / 1000;
   if (overTime > data.timeout) {
     cacheMap.delete(name);
-    if (name.startsWith("_")) {
+    if (name.startsWith("HX.")) {
       try {
         uni.removeStorageSync(name);
       } catch (e) {
@@ -60,7 +60,7 @@ class MinCache {
   set(name, data, timeout = timeoutDefault) {
     const cacheCell = new CacheCell(data, timeout);
     let cache = null;
-    if (name.startsWith("_")) {
+    if (name.startsWith("HX.")) {
       try {
         uni.setStorageSync(name, cacheCell);
         cache = cacheMap.set(name, cacheCell);
@@ -77,7 +77,7 @@ class MinCache {
   }
   delete(name) {
     let value = false;
-    if (name.startsWith("_")) {
+    if (name.startsWith("HX.")) {
       try {
         uni.removeStorageSync(name);
         value = cacheMap.delete(name);

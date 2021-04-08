@@ -96,7 +96,7 @@ npm install @dcloudio/uni-ui -d
 npm run dev:mp-weixin
 ```
 
-此时项目根目录下会生成 `dist/dev/mp-weixin` 目录，打开你的小程序，选择创建小程序，目录选择 `dist/dev/mp-weixin` ，AppID 生成测试号，点击创建即可：
+此时项目根目录下会生成 `dist/dev/mp-weixin` 目录，打开你的小程序开发工具，选择创建小程序，目录选择 `dist/dev/mp-weixin` ，AppID 生成测试号，点击创建即可：
 
 ![创建小程序](./images/create-wx-miniapp.png)
 
