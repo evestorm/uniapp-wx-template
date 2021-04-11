@@ -94,6 +94,7 @@ export function showGetAuthModal() {
 function install(Vue) {
   Vue.prototype.$toast = showToast;
   Vue.prototype.$modal = showModal;
+  Vue.prototype.$hxAuthUserProfileModal = showGetAuthModal;
 }
 
 export default { install, showToast, showGetAuthModal };

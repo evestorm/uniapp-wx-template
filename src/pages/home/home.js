@@ -88,8 +88,13 @@ export default {
       }
     },
     gotoAuth() {
-      uni.navigateTo({
-        url: "/pages/common/auth/auth",
+      // 获取当前页面的URL和url完整路径
+      let fullPath = this.$utils.getCurrentPageUrlAndArgs();
+
+      let redirectUrl = "/" + fullPath;
+      let url = `/pages/common/auth/auth?redirectUrl=${encodeURIComponent(redirectUrl)}`;
+      uni.redirectTo({
+        url,
       });
     },
     gotoProductsList() {

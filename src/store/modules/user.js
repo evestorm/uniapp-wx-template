@@ -140,6 +140,19 @@ export const actions = {
       code: res.code,
       token: storage.getToken(),
     });
+
+    // TODO: 假数据
+    result.msg = "登录成功";
+    result.data = {
+      token: "mock token",
+      user: {
+        nickname: "Lance",
+        sex: 1,
+        avatar: "https://placekitten.com/100/100",
+        city: "宜昌",
+      },
+    };
+
     if (result.msg === "登录成功") {
       storage.setToken(result.data.token);
       context.commit("setUserInfo", res.data.user);
@@ -172,6 +185,10 @@ export const actions = {
 
         // 获取到用户信息后，将信息返给后端
         const result = await user.auth(context.state.userInfo);
+
+        // TODO: mock假后端授权鉴定
+        result.msg = "授权成功";
+
         if (result) {
           // 授权成功
           console.log(result);

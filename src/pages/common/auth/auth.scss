@@ -1,0 +1,34 @@
+.header {
+  width: 650rpx;
+  height: 300rpx;
+  margin: 90rpx 0 90rpx 50rpx;
+  line-height: 450rpx;
+  text-align: center;
+}
+
+.header image {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 100rpx;
+}
+
+.content {
+  margin-bottom: 90rpx;
+  margin-left: 50rpx;
+}
+
+.content text {
+  display: block;
+  margin-top: 40rpx;
+  color: #9d9d9d;
+}
+
+.bottom {
+  margin: 70rpx 50rpx;
+  font-size: 35rpx;
+  border-radius: 80rpx;
+}
+
+.btn-wrapper /deep/ .u-btn {
+  margin: 0 20rpx;
+}

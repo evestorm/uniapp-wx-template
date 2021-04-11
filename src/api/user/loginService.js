@@ -2,14 +2,14 @@ import request from "@/utils/request";
 
 // http api
 const urlLists = {
-  login: "/wx/user/login", // 登录
-  auth: "/wx/user/postAuth", // 授权
-  getUserInfo: "wx/user/getUserInfo", // 获取用户信息
+  login: "/api/services/app/YYPSiteArticle/GetSiteArticleInformation", // 登录
+  auth: "/api/services/app/YYPSiteArticle/GetSiteArticleInformation", // 授权
+  getUserInfo: "/api/services/app/YYPSiteArticle/GetSiteArticleInformation", // 获取用户信息
 };
 
 // 登录获取 openid + session_key
 const login = params => {
-  return request.get(urlLists.login, params);
+  return request.post(urlLists.login, params);
 };
 
 // 授权
@@ -19,7 +19,7 @@ const auth = params => {
 
 // 获取用户信息
 const getUserInfo = params => {
-  return request.get(urlLists.getUserInfo, params);
+  return request.post(urlLists.getUserInfo, params);
 };
 
 export default {
