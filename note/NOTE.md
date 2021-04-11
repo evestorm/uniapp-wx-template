@@ -644,3 +644,67 @@ demo 页在 `pages/homeSub/productsList` 下。顺便在 `src/components` 下新
 ### 更多用法
 
 见文档：<http://www.mescroll.com/uni.html>
+
+## 获取用户信息
+
+首先在 `manifest.json` 中配置：
+
+```json
+{
+  "mp-weixin": {
+    /* 微信小程序特有相关 */
+    // ...
+    "permission": {
+      "scope.userLocation": {
+        "desc": "你的位置信息将用于小程序位置接口的效果展示"
+      }
+    }
+  }
+}
+```
+
+封装获取定位方法：
+
+```js
+export default {
+  methods: {
+    // 检查位置
+    async checkLocation() {
+      const [err, res] = await uni.getSetting();
+      if (err) {
+        this.$toast("error", "获取当前设置失败");
+        return;
+      }
+      if (!res.authSetting["scope.userLocation"]) {
+        const [err, res] = await uni.authorize({
+          scope: "scope.userLocation",
+          desc: "获取相关城市定位",
+        });
+        if (err) {
+          this.$toast("error", "授权失败");
+          return;
+        }
+        if (res) {
+          const [err, res] = await uni.getLocation();
+          if (err) {
+            this.$toast("error", "获取地理位置信息失败");
+            return;
+          }
+          if (res) {
+            console.log("获取到的地理位置信息：", res);
+          }
+        }
+      } else {
+        const [err, res] = await uni.getLocation();
+        if (err) {
+          this.$toast("error", "获取地理位置信息失败");
+          return;
+        }
+        if (res) {
+          console.log("获取到的地理位置信息：", res);
+        }
+      }
+    },
+  },
+};
+```

@@ -62,7 +62,15 @@ export default {
     };
   },
   computed: {
-    ...mapState(["tabBar"]),
+    ...mapState(["tabBar", "userInfo"]),
+  },
+  onShow() {
+    console.log("home-onShow");
+
+    // 有nickname就不用再获取位置信息了
+    if (!this.userInfo.nickname) {
+      this.checkLocation();
+    }
   },
   mounted() {
     this.getNews();
@@ -88,6 +96,43 @@ export default {
       uni.navigateTo({
         url: "/pages/homeSub/productsList/productsList",
       });
+    },
+    // 检查位置
+    async checkLocation() {
+      const [err, res] = await uni.getSetting();
+      if (err) {
+        this.$toast("error", "获取当前设置失败");
+        return;
+      }
+      if (!res.authSetting["scope.userLocation"]) {
+        const [err, res] = await uni.authorize({
+          scope: "scope.userLocation",
+          desc: "获取相关城市定位",
+        });
+        if (err) {
+          this.$toast("error", "授权失败");
+          return;
+        }
+        if (res) {
+          const [err, res] = await uni.getLocation();
+          if (err) {
+            this.$toast("error", "获取地理位置信息失败");
+            return;
+          }
+          if (res) {
+            console.log("获取到的地理位置信息：", res);
+          }
+        }
+      } else {
+        const [err, res] = await uni.getLocation();
+        if (err) {
+          this.$toast("error", "获取地理位置信息失败");
+          return;
+        }
+        if (res) {
+          console.log("获取到的地理位置信息：", res);
+        }
+      }
     },
   },
 };
