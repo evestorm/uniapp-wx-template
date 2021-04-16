@@ -102,6 +102,12 @@ npm run dev:mp-weixin
 
 ## VSCode 相关配置
 
+### jsconfig.json 配置
+
+见文件 `jsconfig.json` 。
+
+文档见：<https://code.visualstudio.com/docs/languages/jsconfig>
+
 ### 项目工作区配置
 
 在项目根目录下创建 `.vscode` 并创建两个必要 json 文件：
