@@ -114,7 +114,7 @@ npm run dev:mp-weixin
 
 #### extensions.json 文件
 
-用于用户使用 VSCode 打开此项目时，弹出的推荐安装插件，（请告知用户在 VSCode 弹出推荐插件后点击允许）：
+用于用户使用 VSCode 打开此项目时，弹出的推荐安装插件，（请告知用户在 VSCode 弹出推荐插件后点击允许），举例：
 
 ```json
 {
