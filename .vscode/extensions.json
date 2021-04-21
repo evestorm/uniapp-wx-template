@@ -27,7 +27,8 @@
     "ionutvmi.path-autocomplete", // 为 VSCode 提供路径完成代码
     "shenjiaolong.vue-helper", // 提高vue开发效率，在vue单文件可实现跳转方法定义
     "dlhtx.uniapp-snippet", // uniapp 代码提示
-    "liamhammett.inline-parameters" // 方法的参数名称提示
+    "liamhammett.inline-parameters", // 方法的参数名称提示
+    "alefragnani.project-manager" // 多项目管理，可在 VSCode 中快速切换项目
   ],
   "unwantedRecommendations": [
     "yoyo930021.vuter", // octref.vetur 的分支
