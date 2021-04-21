@@ -1,3 +1,5 @@
+import appConfig from "../config/index";
+
 /**
  * ! ---------------------- 时间相关 ----------------------
  */
@@ -361,4 +363,13 @@ export function throttle(fn, gapTime = 500) {
       setTimeout(() => (canUse = true), gapTime);
     }
   };
+}
+
+/**
+ * @description 拼接上传的图片地址
+ * @param {*} imgPath 文件地址
+ * @returns 返回完整图片地址
+ */
+export function combImg(imgPath) {
+  return appConfig.picURL + imgPath;
 }
