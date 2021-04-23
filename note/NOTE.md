@@ -622,7 +622,8 @@ export const actions = {};
 
 ## 微信登录和授权
 
-TODO
+1. 程序启动时，查看下 token 存不存在。
+2. 如果存在，request.checkToken ，检查 token 有效性
 
 ## 下拉刷新
 

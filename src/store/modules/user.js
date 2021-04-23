@@ -202,36 +202,6 @@ export const actions = {
           }
         }
       }
-    } else if (this.canIUseGetUserInfo) {
-      const [error, res] = await uni.getUserInfo({
-        provider: "weixin",
-        lang: "zh_CN", // 获取的省份城市等信息为中文
-      });
-      if (error) {
-        showToast("error", "授权失败");
-        showGetAuthModal();
-        return "授权失败";
-      }
-      context.commit("setUserInfo", {
-        nickname: res.userInfo.nickName,
-        sex: res.userInfo.gender,
-        avatar: res.userInfo.avatarUrl,
-        city: res.userInfo.city,
-      });
-      // 获取到用户信息后，将信息返给后端
-      const result = await user.auth(context.state.userInfo);
-      if (result) {
-        // 授权成功
-        console.log(result);
-        if (result.msg === "授权成功") {
-          context.commit("setNeedAuth", false);
-          this.dispatch("updateUserInfo");
-          return "授权成功";
-        } else {
-          showToast("error", "授权失败");
-          return "授权失败";
-        }
-      }
     } else {
       showToast("error", "请升级微信版本");
       return "请升级微信版本";
