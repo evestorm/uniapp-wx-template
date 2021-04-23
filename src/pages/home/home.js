@@ -81,21 +81,20 @@ export default {
         url: `/pages/homeSub/subPage/subPage?title=${this.title}`,
       });
     },
+    // 前往用户个人信息页
+    gotoUserPage() {
+      uni.switchTab(
+        {
+          url: "/pages/me/me",
+        },
+        true,
+      );
+    },
     async getNews() {
       let result = await home.getNews();
       if (result) {
         console.log(result);
       }
-    },
-    gotoAuth() {
-      // 获取当前页面的URL和url完整路径
-      let fullPath = this.$utils.getCurrentPageUrlAndArgs();
-
-      let redirectUrl = "/" + fullPath;
-      let url = `/pages/common/auth/auth?redirectUrl=${encodeURIComponent(redirectUrl)}`;
-      uni.redirectTo({
-        url,
-      });
     },
     gotoProductsList() {
       uni.navigateTo({

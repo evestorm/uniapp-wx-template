@@ -1,5 +1,6 @@
 // 对于需要登录才可以进入的页面，先做一下登录校验，如果未登录，则跳转前先跳转至登录页面。
 import store from "@/store";
+import { gotoAuth } from "@/utils/index";
 
 // 对路由相关的几个方法进行遍历并缓存原方法，
 // 在uni对象上重写方法，每个方法增加needAuth参数，表示跳转前是否需要登录
@@ -11,9 +12,14 @@ export default function () {
     const nativeFunc = uni[item];
     uni[item] = function (opts, needAuth) {
       if (needAuth) {
-        store.dispatch("user/getToken").then(() => {
+        // store.dispatch("user/getToken").then(() => {
+        //   nativeFunc.call(this, opts);
+        // });
+        if (store.state.hasLogin) {
           nativeFunc.call(this, opts);
-        });
+        } else {
+          gotoAuth();
+        }
       } else {
         return nativeFunc.call(this, opts);
       }

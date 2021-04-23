@@ -1,4 +1,6 @@
 <script>
+import { mapGetters, mapActions, mapMutations } from "vuex";
+
 export default {
   // 全局对象
   globalData: {
@@ -11,12 +13,20 @@ export default {
   onLaunch: function () {
     console.log("App Launch");
     console.log(this.$options);
+    this.wxLogin();
   },
   onShow: function () {
     console.log("App Show");
   },
   onHide: function () {
     console.log("App Hide");
+  },
+  computed: {
+    ...mapGetters(["getUserInfo", "getNeedAuth", "getHasLogin"]), // 暂时没用到
+  },
+  methods: {
+    ...mapMutations(["setNeedAuth", "setUserInfo"]), // 暂时没用到
+    ...mapActions(["wxLogin"]),
   },
 };
 </script>

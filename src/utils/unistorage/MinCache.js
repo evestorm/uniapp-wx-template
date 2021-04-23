@@ -75,7 +75,7 @@ class MinCache {
   get(name) {
     return isTimeout(name) ? null : cacheMap.get(name).data;
   }
-  delete(name) {
+  remove(name) {
     let value = false;
     if (name.startsWith("HX.")) {
       try {

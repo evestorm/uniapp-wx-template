@@ -373,3 +373,17 @@ export function throttle(fn, gapTime = 500) {
 export function combImg(imgPath) {
   return appConfig.picURL + imgPath;
 }
+
+/**
+ * @description 获取当前页面URL，并转到 auth 页面授权
+ */
+export function gotoAuth() {
+  // 获取当前页面的URL和url完整路径
+  let fullPath = getCurrentPageUrlAndArgs();
+
+  let redirectUrl = "/" + fullPath;
+  let url = `/pages/common/auth/auth?redirectUrl=${encodeURIComponent(redirectUrl)}`;
+  uni.redirectTo({
+    url,
+  });
+}

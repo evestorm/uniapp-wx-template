@@ -1,35 +1,13 @@
-// import { mapGetters, mapActions } from "vuex";
-// // import user from "@/api/user/loginService";
-// // import mock from "@/pages/common/auth/mock";
-
-// export default {
-//   data() {
-//     return {
-//       userInfo: {},
-//       appData: getApp().globalData,
-//     };
-//   },
-//   computed: {
-//     ...mapGetters(["getUserInfo", "getNeedAuth", "getHasLogin"]),
-//   },
-//   onLoad() {
-//     if (!this.getHasLogin) {
-//       this.init();
-//     }
-//   },
-//   methods: {
-//     ...mapActions(["login", "authUserInfo"]),
-//     init() {
-//       this.login();
-//     },
-//   },
-// };
-
-// import GK01AppService from '@/service/GK/GK01AppService.js'
-// import mock from "@/pages/common/auth/mock";
-
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import user from "@/api/user/loginService";
+
+const mockUserInfo = {
+  nickname: "Lance",
+  sex: 1,
+  avatar: "https://placekitten.com/100/100",
+  city: "New York",
+  phone: "18711120121",
+};
 
 export default {
   data() {
@@ -38,6 +16,7 @@ export default {
       showGetUserProfileBtn: true, // 是否显示获取用户信息的按钮
       showGetPhoneBtn: false, // 是否显示获取手机号的按钮
       redirectUrl: "", // 最终跳转的url
+      wxCode: "", // uni.login 返回的 code
     };
   },
   computed: {
@@ -46,11 +25,25 @@ export default {
   onLoad(options) {
     let { redirectUrl } = options;
     this.redirectUrl = decodeURIComponent(redirectUrl);
+    this.getWxCode();
   },
   methods: {
-    ...mapMutations(["setNeedAuth", "setUserInfo"]),
+    ...mapMutations(["setNeedAuth", "setUserInfo", "setHasLogin"]),
     ...mapActions(["login", "authUserInfo", "updateUserInfo"]),
-    // 获取 userProfile 用户信息
+    // 获取 wxCode
+    async getWxCode() {
+      const [err, res] = await uni.login({
+        provider: "weixin",
+      });
+      if (!err) {
+        this.wxCode = res.code;
+      }
+    },
+    // 暂不登录
+    navigateBack() {
+      this.jumpUrl(this.redirectUrl);
+    },
+    // TODO: 旧版 获取 userProfile 用户信息
     async authUserProfile() {
       const [error, res] = await uni.getUserProfile({
         desc: "获取您的基本信息", // 这个参数是必须的
@@ -94,6 +87,52 @@ export default {
         }
       }
     },
+    // 获取用户信息
+    async getUserInfoTap() {
+      const [err, res] = await uni.getUserProfile({
+        desc: "注册身份信息验证",
+      });
+      if (!err) {
+        const userData = res;
+        let postData = {
+          iv: userData.iv,
+          code: this.wxCode,
+          raw_data: userData.rawData,
+          signature: userData.signature,
+          encrypted_data: userData.encryptedData,
+        };
+        console.log("uni.getUserProfile", userData);
+        const result = await user.getUserInfo(postData);
+        // TODO: 到时候删除
+        result.userInfo = mockUserInfo;
+        if (result) {
+          // 登录成功
+          this.setHasLogin(true);
+          this.$storage.setToken("mock token");
+          this.setUserInfo(result.userInfo);
+          uni.showToast({ title: "授权登陆成功" });
+          setTimeout(() => {
+            this.jumpUrl(this.redirectUrl);
+          }, 500);
+        } else {
+          // 登录失败
+          // 失败 or code 失效（重新获取code）
+          this.getWxCode();
+          uni.showModal({
+            title: "授权失败",
+            content: result.msg,
+            showCancel: false,
+          });
+        }
+      } else {
+        this.getWxCode();
+        uni.showModal({
+          title: "授权失败",
+          content: "获取授权信息失败，请重新授权登录",
+          showCancel: false,
+        });
+      }
+    },
     // 获取手机号
     getPhoneNumber(e) {
       console.log(e);
@@ -121,6 +160,7 @@ export default {
     },
     // 页面跳转
     jumpUrl(url) {
+      console.log(url);
       if (url.indexOf("home/home") > -1 || url.indexOf("message/message") > -1 || url.indexOf("workbench/workbench") > -1 || url.indexOf("me/me") > -1) {
         // getApp().globalData.indexQuery = {
         //   shareOpenid: this.$util.getQueryString(url, "shareOpenid"),

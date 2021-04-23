@@ -3,6 +3,14 @@ import storage from "@/utils/unistorage/index";
 import user from "@/api/user/loginService";
 import { showGetAuthModal, showToast } from "@/utils/interactiveFeedback";
 
+const mockUserInfo = {
+  nickname: "Lance",
+  sex: 1,
+  avatar: "https://placekitten.com/100/100",
+  city: "New York",
+  phone: "18711120121",
+};
+
 export const state = {
   userInfo: {}, //用户信息
   needAuth: true, // 需要授权
@@ -23,7 +31,7 @@ export const mutations = {
   setToken(state, data) {
     if (data) {
       state.token = data;
-      storage.setToken(`Bearer ${data}`);
+      storage.setToken(data);
     }
   },
   //储存用户信息
@@ -31,6 +39,7 @@ export const mutations = {
     if (userInfo) {
       state.userInfo = Object.assign({}, state.userInfo, userInfo);
       storage.setUserInfo(state.userInfo);
+      console.log(state.userInfo);
     }
   },
   // 设置是否需要授权
@@ -207,10 +216,86 @@ export const actions = {
       return "请升级微信版本";
     }
   },
-  updateUserInfo: async function (context) {
+  updateUserInfoCopy: async function (context) {
     const res = await user.getUserInfo();
     if (res.data) {
       context.commit("setUserInfo", res.data);
+    } else {
+      context.commit("setUserInfo", {});
+    }
+  },
+
+  // ------------- 新版 --------------
+  async wxLogin(context) {
+    let token = storage.getToken();
+    console.log("getToken:", token);
+    if (token) {
+      // 有token
+      const result = await user.checkToken();
+      console.log("checkToken:", result);
+      if (result) {
+        // token 有效:
+        // 设置vuex登录状态
+        context.commit("setHasLogin", true);
+        // 查询新的 userInfo 并更新 userInfo
+        const data = await user.getUserInfo();
+        // TODO: 假数据得删除
+        data.userInfo = mockUserInfo;
+        context.commit("setUserInfo", data.userInfo ? data.userInfo : {});
+      } else {
+        // token 失效:
+        // 设置vuex登录状态
+        context.commit("setHasLogin", false);
+        // 删除localStorage的token
+        storage.removeToken();
+        this.dispatch("wxLogin");
+      }
+    } else {
+      // 没有token
+      const [err, res] = await uni.login({
+        provider: "weixin",
+      });
+      console.log("uni.login:", { err, res });
+
+      if (err) {
+        // 登录失败
+        // 设置vuex登录状态
+        context.commit("setHasLogin", false);
+        // 删除用户信息 userInfo
+        context.commit("setUserInfo", {});
+        // 删除localStorage的token
+        storage.removeToken();
+        return;
+      }
+      // 获取code成功
+
+      // 查询新的 userInfo 并更新 userInfo
+      const data = await user.getUserInfo({
+        code: res.code,
+      });
+      console.log("user.getUserInfo:", data);
+
+      // TODO: 删掉到时候（注释即没登录过，不注释代表后台有用户信息）
+      // data.token = "mock user";
+      // data.userInfo = {
+      //   nickname: "Lance",
+      //   sex: 1,
+      //   avatar: "https://placekitten.com/100/100",
+      //   city: "New York",
+      //   phone: "",
+      // };
+
+      if (data.token) {
+        // 登录成功
+        // 设置vuex登录状态
+        context.commit("setHasLogin", true);
+        context.commit("setUserInfo", data.userInfo ? data.userInfo : {});
+        // 更新localStorage的token
+        storage.setToken(data.token);
+      } else {
+        // 登录失败
+        return;
+      }
     }
   },
 };

@@ -19,7 +19,7 @@ minRequest.interceptors.request(config => {
   // 如果 Vuex 中有token
   if (store.getters.token) {
     // 让当前请求携带token令牌
-    config.header["Authorization"] = storage.getToken();
+    config.header["Authorization"] = `Bearer ${storage.getToken()}`;
   } else {
     config.header["Authorization"] = "";
   }
