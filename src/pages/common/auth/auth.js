@@ -6,7 +6,7 @@ const mockUserInfo = {
   sex: 1,
   avatar: "https://placekitten.com/100/100",
   city: "New York",
-  phone: "18711120121",
+  phone: "",
 };
 
 export default {
@@ -22,23 +22,15 @@ export default {
   computed: {
     ...mapGetters(["getUserInfo", "getNeedAuth", "getHasLogin"]),
   },
-  onLoad(options) {
+  async onLoad(options) {
     let { redirectUrl } = options;
     this.redirectUrl = decodeURIComponent(redirectUrl);
-    this.getWxCode();
+    this.wxCode = await this.getWxCode();
   },
   methods: {
     ...mapMutations(["setNeedAuth", "setUserInfo", "setHasLogin"]),
-    ...mapActions(["login", "authUserInfo", "updateUserInfo"]),
-    // 获取 wxCode
-    async getWxCode() {
-      const [err, res] = await uni.login({
-        provider: "weixin",
-      });
-      if (!err) {
-        this.wxCode = res.code;
-      }
-    },
+    ...mapActions(["login", "authUserInfo", "updateUserInfo", "getWxCode"]),
+
     // 暂不登录
     navigateBack() {
       this.jumpUrl(this.redirectUrl);
@@ -117,7 +109,7 @@ export default {
         } else {
           // 登录失败
           // 失败 or code 失效（重新获取code）
-          this.getWxCode();
+          this.wxCode = await this.getWxCode();
           uni.showModal({
             title: "授权失败",
             content: result.msg,

@@ -41,5 +41,5 @@ export default {
 @import "@/assets/iconfont/iconfont.css";
 
 // 引入 自定义内置样式
-@import "@/assets/css/main.css";
+@import "@/assets/css/main.scss";
 </style>

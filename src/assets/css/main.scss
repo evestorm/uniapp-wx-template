@@ -1274,3 +1274,20 @@ body {
 	height: 100%;
 	position: relative; */
 }
+
+/* 无样式btn */
+.no-style {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  line-height: inherit;
+  background-color: #fff;
+  border: none;
+  border-radius: 0;
+  justify-content: flex-start;
+  align-items: center;
+
+  &::after {
+    border: none;
+  }
+}

@@ -8,7 +8,7 @@ const mockUserInfo = {
   sex: 1,
   avatar: "https://placekitten.com/100/100",
   city: "New York",
-  phone: "18711120121",
+  phone: "",
 };
 
 export const state = {
@@ -228,6 +228,63 @@ export const actions = {
   },
 
   // ------------- 新版 --------------
+  /**
+   * @description 获取 wxCode
+   */
+  getWxCode: async function () {
+    const [err, res] = await uni.login({
+      provider: "weixin",
+    });
+    if (!err) {
+      return res.code;
+    }
+    return "";
+  },
+
+  /**
+   * @description 获取手机号
+   */
+  getPhoneNumber: async function (context, e) {
+    let data = e.detail;
+    if (!data.errMsg || data.errMsg != "getPhoneNumber:ok") {
+      uni.showModal({
+        content: "无法获取您的手机号码，请重试！",
+        showCancel: false,
+      });
+    } else {
+      const wxCode = await context.dispatch("getWxCode");
+      const res = await user.getUserPhone({
+        iv: data.iv,
+        code: wxCode,
+        encryptedData: data.encryptedData,
+      });
+
+      // TODO: 假数据得删除
+      res.code = 0;
+
+      if (res.code === 0) {
+        uni.showToast({ title: "获取成功" });
+        // 查询新的 userInfo 并更新 userInfo
+        const data = await user.getUserInfo({
+          code: wxCode,
+        });
+        // TODO: 假数据得删除
+        data.userInfo = mockUserInfo;
+        data.userInfo.phone = "18722212221";
+        context.commit("setUserInfo", data.userInfo ? data.userInfo : {});
+      } else {
+        await context.dispatch("getWxCode");
+        uni.showModal({
+          content: "手机号码获取失败，请重试！",
+          showCancel: false,
+        });
+      }
+    }
+  },
+
+  /**
+   * @description 微信登录
+   */
   async wxLogin(context) {
     let token = storage.getToken();
     console.log("getToken:", token);

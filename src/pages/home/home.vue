@@ -6,12 +6,15 @@
         <!-- 头像 -->
         <image class="avatar mr-2" :src="userInfo.avatar" @click="gotoAuth" />
         <!-- 信息 -->
-        <view class="info d-flex flex-column" @click="gotoProductsList">
+        <view class="info d-flex flex-column">
           <view class="name-wrapper d-flex j-start a-center">
             <view class="name mr-2" @click.stop="gotoUserPage">{{ userInfo.nickname ? userInfo.nickname : "去登录" }}</view>
             <view class="cert d-flex a-center"><image class="img mr-1" src="/static/images/已认证.png" mode="" />已认证</view>
           </view>
-          <view class="phone">{{ userInfo.phone ? userInfo.phone : "" }}</view>
+          <!-- 已登录，没手机号 -->
+          <view v-show="hasLogin && userInfo.phone" class="phone">{{ userInfo.phone ? userInfo.phone : "关联手机号，开启更多功能~" }}</view>
+          <!-- 登录后才显示，而且得没有手机号 -->
+          <button v-show="hasLogin && !userInfo.phone" class="phone no-style" open-type="getPhoneNumber" @getphonenumber="getphonenumberTap">关联手机号，开启更多功能~</button>
         </view>
       </view>
       <view class="header-right h-100 d-flex flex-column ml-auto j-sb">

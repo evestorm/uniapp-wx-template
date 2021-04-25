@@ -7,6 +7,7 @@ const urlLists = {
   getUserInfo: "/api/services/app/YYPSiteArticle/GetSiteArticleInformation", // 获取用户信息
 
   checkToken: "/api/services/app/YYPSiteArticle/GetSiteArticleInformation", // 检查token
+  getUserPhone: "/api/services/app/YYPSiteArticle/GetSiteArticleInformation", // 绑定手机号
 };
 
 // 登录获取 openid + session_key
@@ -29,9 +30,15 @@ const checkToken = params => {
   return request.post(urlLists.checkToken, params);
 };
 
+// 绑定手机号
+const getUserPhone = params => {
+  return request.post(urlLists.getUserPhone, params);
+};
+
 export default {
   login,
   auth,
   getUserInfo,
   checkToken,
+  getUserPhone,
 };

@@ -1,4 +1,4 @@
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 import home from "@/api/home/newsService";
 
@@ -62,7 +62,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["tabBar", "userInfo"]),
+    ...mapState(["tabBar", "userInfo", "hasLogin"]),
   },
   onShow() {
     console.log("home-onShow");
@@ -76,6 +76,11 @@ export default {
     this.getNews();
   },
   methods: {
+    ...mapActions(["getPhoneNumber"]),
+    // 获取手机号
+    getphonenumberTap(e) {
+      this.getPhoneNumber(e);
+    },
     gotoSubPage() {
       uni.navigateTo({
         url: `/pages/homeSub/subPage/subPage?title=${this.title}`,
