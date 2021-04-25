@@ -8,7 +8,7 @@
         <!-- 信息 -->
         <view class="info d-flex flex-column" @click="gotoProductsList">
           <view class="name-wrapper d-flex j-start a-center">
-            <view class="name mr-2" @click.prevent="gotoUserPage">{{ userInfo.nickname ? userInfo.nickname : "去登录" }}</view>
+            <view class="name mr-2" @click.stop="gotoUserPage">{{ userInfo.nickname ? userInfo.nickname : "去登录" }}</view>
             <view class="cert d-flex a-center"><image class="img mr-1" src="/static/images/已认证.png" mode="" />已认证</view>
           </view>
           <view class="phone">{{ userInfo.phone ? userInfo.phone : "" }}</view>

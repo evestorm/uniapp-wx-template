@@ -52,7 +52,9 @@ export const mutations = {
   },
   logout(state) {
     state.userInfo = {};
+    state.hasLogin = false;
     storage.removeUserInfo();
+    storage.removeToken();
   },
 };
 export const actions = {
@@ -244,10 +246,9 @@ export const actions = {
         context.commit("setUserInfo", data.userInfo ? data.userInfo : {});
       } else {
         // token 失效:
-        // 设置vuex登录状态
-        context.commit("setHasLogin", false);
-        // 删除localStorage的token
-        storage.removeToken();
+        // 登出
+        context.commit("logout");
+        // 重新登录
         this.dispatch("wxLogin");
       }
     } else {
@@ -259,12 +260,8 @@ export const actions = {
 
       if (err) {
         // 登录失败
-        // 设置vuex登录状态
-        context.commit("setHasLogin", false);
-        // 删除用户信息 userInfo
-        context.commit("setUserInfo", {});
-        // 删除localStorage的token
-        storage.removeToken();
+        // 登出
+        context.commit("logout");
         return;
       }
       // 获取code成功
@@ -290,10 +287,12 @@ export const actions = {
         // 设置vuex登录状态
         context.commit("setHasLogin", true);
         context.commit("setUserInfo", data.userInfo ? data.userInfo : {});
-        // 更新localStorage的token
+        // 更新localStorage的token 和 userInfo
         storage.setToken(data.token);
+        storage.setUserInfo(data.userInfo);
       } else {
         // 登录失败
+        context.commit("logout");
         return;
       }
     }
