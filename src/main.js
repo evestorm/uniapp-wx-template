@@ -2,6 +2,7 @@ import Vue from "vue";
 import App from "./App";
 import MinCache from "@/utils/unistorage/MinCache";
 import storage from "@/utils/unistorage/index";
+import enums from "./utils/enum/index";
 import config from "@/config/index";
 import * as utils from "@/utils/index";
 import MniRequest from "@/utils/MinRequest";
@@ -50,4 +51,5 @@ function prototypeEx(Vue) {
   Vue.prototype.$storage = storage; // 用于存储
   Vue.prototype.$utils = utils; // 工具类
   Vue.prototype.$config = config; // baseURL配置
+  Vue.prototype.$enums = enums; // 枚举工具类
 }

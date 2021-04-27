@@ -724,3 +724,13 @@ export default {
 ## 枚举工具类
 
 具体见 `@/utils/enum` 的 README.md 文档。
+
+挂载到 `Vue.prototype` 上：
+
+> main.js
+
+```js
+import enums from "./utils/enum/index";
+...
+Vue.prototype.$enums = enums; // 枚举工具类
+```
