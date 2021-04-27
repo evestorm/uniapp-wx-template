@@ -10,7 +10,13 @@
     </view>
 
     <view class="btn-wrapper">
-      <u-button v-show="showGetUserProfileBtn" type="success" open-type="getUserProfile" @click="getUserInfoTap">授权登录</u-button>
+      <u-button
+        v-show="showGetUserProfileBtn"
+        type="success"
+        open-type="getUserProfile"
+        @click="getUserInfoTap"
+        >授权登录</u-button
+      >
       <!-- <u-button v-show="showGetPhoneBtn" type="success" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">授权手机</u-button> -->
       <u-button @click="navigateBack" class="go-back">暂不登录</u-button>
     </view>
