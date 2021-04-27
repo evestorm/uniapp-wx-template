@@ -22,10 +22,10 @@ export default {
     console.log("App Hide");
   },
   computed: {
-    ...mapGetters(["getUserInfo", "getNeedAuth", "getHasLogin"]), // 暂时没用到
+    ...mapGetters(["getUserInfo", "getHasLogin"]), // 暂时没用到
   },
   methods: {
-    ...mapMutations(["setNeedAuth", "setUserInfo"]), // 暂时没用到
+    ...mapMutations(["setUserInfo"]), // 暂时没用到
     ...mapActions(["wxLogin"]),
   },
 };

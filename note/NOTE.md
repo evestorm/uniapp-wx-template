@@ -124,7 +124,12 @@ npm run dev:mp-weixin
 
 ```json
 {
-  "recommendations": ["octref.vetur", "esbenp.prettier-vscode", "dbaeumer.vscode-eslint", "stylelint.vscode-stylelint"],
+  "recommendations": [
+    "octref.vetur",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "stylelint.vscode-stylelint"
+  ],
   "unwantedRecommendations": ["yoyo930021.vuter"]
 }
 ```
@@ -715,3 +720,7 @@ export default {
   },
 };
 ```
+
+## 枚举工具类
+
+具体见 `@/utils/enum` 的 README.md 文档。

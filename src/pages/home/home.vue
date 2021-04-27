@@ -4,17 +4,29 @@
     <view class="header d-flex flex-nowrap j-sb a-center px-3 py-2">
       <view class="header-left d-flex j-start a-center">
         <!-- 头像 -->
-        <image class="avatar mr-2" :src="userInfo.avatar" @click="gotoAuth" />
+        <image class="avatar mr-2" :src="userInfo.avatar" />
         <!-- 信息 -->
         <view class="info d-flex flex-column">
           <view class="name-wrapper d-flex j-start a-center">
-            <view class="name mr-2" @click.stop="gotoUserPage">{{ userInfo.nickname ? userInfo.nickname : "去登录" }}</view>
-            <view class="cert d-flex a-center"><image class="img mr-1" src="/static/images/已认证.png" mode="" />已认证</view>
+            <view class="name mr-2" @click.stop="gotoUserPage">{{
+              userInfo.nickname ? userInfo.nickname : "去登录"
+            }}</view>
+            <view class="cert d-flex a-center"
+              ><image class="img mr-1" src="/static/images/已认证.png" mode="" />已认证</view
+            >
           </view>
           <!-- 已登录，没手机号 -->
-          <view v-show="hasLogin && userInfo.phone" class="phone">{{ userInfo.phone ? userInfo.phone : "关联手机号，开启更多功能~" }}</view>
+          <view v-show="hasLogin && userInfo.phone" class="phone">{{
+            userInfo.phone ? userInfo.phone : "关联手机号，开启更多功能~"
+          }}</view>
           <!-- 登录后才显示，而且得没有手机号 -->
-          <button v-show="hasLogin && !userInfo.phone" class="phone no-style" open-type="getPhoneNumber" @getphonenumber="getphonenumberTap">关联手机号，开启更多功能~</button>
+          <button
+            v-show="hasLogin && !userInfo.phone"
+            class="phone no-style"
+            open-type="getPhoneNumber"
+            @getphonenumber="getphonenumberTap"
+            >关联手机号，开启更多功能~</button
+          >
         </view>
       </view>
       <view class="header-right h-100 d-flex flex-column ml-auto j-sb">
@@ -38,7 +50,11 @@
     </view>
     <!-- menu -->
     <view class="menu-wrapper d-flex j-sa a-center p-2">
-      <view class="item d-flex flex-column a-center j-center" v-for="(menu, idx) in menuList" :key="idx">
+      <view
+        class="item d-flex flex-column a-center j-center"
+        v-for="(menu, idx) in menuList"
+        :key="idx"
+      >
         <image class="img" :src="menu.src" mode="" />
         <view class="name">{{ menu.name }}</view>
       </view>
@@ -64,7 +80,13 @@
       <view class="list">
         <view class="card d-flex j-sb a-center my-2" v-for="(item, idx) in cardList" :key="idx">
           <view class="info mr-3">
-            <u-image class="img" width="270rpx" height="180rpx" :src="item.img" border-radius="10rpx"></u-image>
+            <u-image
+              class="img"
+              width="270rpx"
+              height="180rpx"
+              :src="item.img"
+              border-radius="10rpx"
+            ></u-image>
           </view>
           <view class="detail d-flex j-sb flex-column flex-1">
             <view class="title">{{ item.title }}</view>

@@ -20,7 +20,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getUserInfo", "getNeedAuth", "getHasLogin"]),
+    ...mapGetters(["getUserInfo", "getHasLogin"]),
   },
   async onLoad(options) {
     let { redirectUrl } = options;
@@ -153,7 +153,12 @@ export default {
     // 页面跳转
     jumpUrl(url) {
       console.log(url);
-      if (url.indexOf("home/home") > -1 || url.indexOf("message/message") > -1 || url.indexOf("workbench/workbench") > -1 || url.indexOf("me/me") > -1) {
+      if (
+        url.indexOf("home/home") > -1 ||
+        url.indexOf("message/message") > -1 ||
+        url.indexOf("workbench/workbench") > -1 ||
+        url.indexOf("me/me") > -1
+      ) {
         // getApp().globalData.indexQuery = {
         //   shareOpenid: this.$util.getQueryString(url, "shareOpenid"),
         // };

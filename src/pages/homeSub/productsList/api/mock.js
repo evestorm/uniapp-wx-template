@@ -35,7 +35,14 @@ export function apiNewList(pageNum, pageSize) {
             };
             list.push(newObj);
           }
-          console.log("page.num=" + pageNum + ", page.size=" + pageSize + ", curPageData.length=" + list.length);
+          console.log(
+            "page.num=" +
+              pageNum +
+              ", page.size=" +
+              pageSize +
+              ", curPageData.length=" +
+              list.length,
+          );
         }
         //模拟接口请求成功
         resolute(list);
@@ -61,7 +68,9 @@ export function apiGoods(pageNum, pageSize, isGoodsEdit) {
           list.push(data[i]);
         }
         //模拟接口请求成功
-        console.log("page.num=" + pageNum + ", page.size=" + pageSize + ", curPageData.length=" + list.length);
+        console.log(
+          "page.num=" + pageNum + ", page.size=" + pageSize + ", curPageData.length=" + list.length,
+        );
         resolute(list);
       } catch (e) {
         //模拟接口请求失败
@@ -95,7 +104,16 @@ export function apiSearch(pageNum, pageSize, keyword) {
           }
         }
         //模拟接口请求成功
-        console.log("page.num=" + pageNum + ", page.size=" + pageSize + ", curPageData.length=" + list.length + ", keyword=" + keyword);
+        console.log(
+          "page.num=" +
+            pageNum +
+            ", page.size=" +
+            pageSize +
+            ", curPageData.length=" +
+            list.length +
+            ", keyword=" +
+            keyword,
+        );
         resolute(list);
       } catch (e) {
         //模拟接口请求失败
@@ -115,16 +133,31 @@ export function apiWeiboList(pageNum, pageSize) {
         if (!pageNum) {
           //此处模拟下拉刷新返回的数据
           let id = new Date().getTime();
-          let newObj = { id: id, title: "【新增微博" + id + "】 新增微博", content: "新增微博的内容,新增微博的内容" };
+          let newObj = {
+            id: id,
+            title: "【新增微博" + id + "】 新增微博",
+            content: "新增微博的内容,新增微博的内容",
+          };
           list.push(newObj);
         } else {
           //此处模拟上拉加载返回的数据
           for (let i = 0; i < pageSize; i++) {
             let upIndex = (pageNum - 1) * pageSize + i + 1;
-            let newObj = { id: upIndex, title: "【微博" + upIndex + "】 标题标题标题标题标题标题", content: "内容内容内容内容内容内容内容内容内容内容" };
+            let newObj = {
+              id: upIndex,
+              title: "【微博" + upIndex + "】 标题标题标题标题标题标题",
+              content: "内容内容内容内容内容内容内容内容内容内容",
+            };
             list.push(newObj);
           }
-          console.log("page.num=" + pageNum + ", page.size=" + pageSize + ", curPageData.length=" + list.length);
+          console.log(
+            "page.num=" +
+              pageNum +
+              ", page.size=" +
+              pageSize +
+              ", curPageData.length=" +
+              list.length,
+          );
         }
         //模拟接口请求成功
         resolute(list);
@@ -158,7 +191,9 @@ export function apiMsgList(pageNum, pageSize) {
             list.unshift(newObj);
           }
         }
-        console.log("page.num=" + pageNum + ", page.size=" + pageSize + ", curPageData.length=" + list.length);
+        console.log(
+          "page.num=" + pageNum + ", page.size=" + pageSize + ", curPageData.length=" + list.length,
+        );
         //模拟接口请求成功
         resolute(list);
       } catch (e) {

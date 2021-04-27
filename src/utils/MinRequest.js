@@ -51,7 +51,9 @@ class MinRequest {
   request(options = {}) {
     options.baseURL = options.baseURL || this[config].baseURL;
     options.dataType = options.dataType || this[config].dataType;
-    options.url = MinRequest[isCompleteURL](options.url) ? options.url : options.baseURL + options.url;
+    options.url = MinRequest[isCompleteURL](options.url)
+      ? options.url
+      : options.baseURL + options.url;
     options.data = options.data || {};
     options.header = { ...options.header, ...this[config].header };
     options.method = options.method || this[config].method;

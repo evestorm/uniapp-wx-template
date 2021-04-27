@@ -1,5 +1,5 @@
 module.exports = {
-  printWidth: 180, // 一行的字符数，如果超过会进行换行，默认为80
+  printWidth: 100, // 一行的字符数，如果超过会进行换行，默认为80
   tabWidth: 2, // 一个tab代表几个空格数，默认为2
   useTabs: false, // 是否使用tab进行缩进，默认为false，表示用空格进行缩减
   semi: true, // 行尾是否使用分号，默认为true

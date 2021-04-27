@@ -3,7 +3,9 @@
     <view class="notice-warp">
       <view class="notice">商品的名称价格销量随时会变动,也可能会下架删除</view>
       <view class="notice">所以本Demo的下拉刷新会重置列表数据</view>
-      <view class="btn-change" @click="isGoodsEdit = true">{{ isGoodsEdit ? "已模拟后台修改信息, 请下拉刷新" : "点击模拟后台修改商品信息" }}</view>
+      <view class="btn-change" @click="isGoodsEdit = true">{{
+        isGoodsEdit ? "已模拟后台修改信息, 请下拉刷新" : "点击模拟后台修改商品信息"
+      }}</view>
     </view>
     <good-list :list="goods"></good-list>
   </mescroll-body>
