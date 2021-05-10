@@ -55,7 +55,7 @@ Syntax Error: TypeError: this.getOptions is not a function
 文档：<https://ext.dcloud.net.cn/plugin?id=55>
 
 ```shell
-npm install @dcloudio/uni-ui -d
+npm install @dcloudio/uni-ui
 ```
 
 使用 `npm` 安装好 `uni-ui` 之后，需要配置 `easycom` 规则，让 `npm` 安装的组件支持 `easycom`
