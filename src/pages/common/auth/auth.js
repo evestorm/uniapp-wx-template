@@ -60,7 +60,7 @@ export default {
         });
 
         // 获取到用户信息后，将信息返给后端
-        const result = await user.auth(userInfo);
+        const [, result] = await user.auth(userInfo);
 
         // TODO: mock假后端授权鉴定
         result.msg = "授权成功";
@@ -94,7 +94,7 @@ export default {
           encrypted_data: userData.encryptedData,
         };
         console.log("uni.getUserProfile", userData);
-        const result = await user.getUserInfo(postData);
+        const [, result] = await user.getUserInfo(postData);
         // TODO: 到时候删除
         result.userInfo = mockUserInfo;
         if (result) {

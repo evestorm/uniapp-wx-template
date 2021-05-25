@@ -104,7 +104,7 @@ export const actions = {
       if (res.code === 0) {
         uni.showToast({ title: "获取成功" });
         // 查询新的 userInfo 并更新 userInfo
-        const data = await user.getUserInfo({
+        const [, data] = await user.getUserInfo({
           code: wxCode,
         });
         // TODO: 假数据得删除
@@ -129,14 +129,14 @@ export const actions = {
     console.log("getToken:", token);
     if (token) {
       // 有token
-      const result = await user.checkToken();
+      const [, result] = await user.checkToken();
       console.log("checkToken:", result);
       if (result) {
         // token 有效:
         // 设置vuex登录状态
         context.commit("setHasLogin", true);
         // 查询新的 userInfo 并更新 userInfo
-        const data = await user.getUserInfo();
+        const [, data] = await user.getUserInfo();
         // TODO: 假数据得删除
         data.userInfo = mockUserInfo;
         context.commit("setUserInfo", data.userInfo ? data.userInfo : {});
@@ -164,7 +164,7 @@ export const actions = {
       // 获取code成功
 
       // 查询新的 userInfo 并更新 userInfo
-      const data = await user.getUserInfo({
+      const [, data] = await user.getUserInfo({
         code: res.code,
       });
       console.log("user.getUserInfo:", data);

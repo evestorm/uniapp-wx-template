@@ -50,14 +50,14 @@ minRequest.interceptors.response((response, config) => {
     } else {
       interactiveFeedback.showToast("error", "服务器错误");
     }
-    return Promise.reject(response);
+    return Promise.resolve([response, null]);
   }
 
   // if (resCode !== 20000) {
   //   interactiveFeedback.showToast("error", msg);
   // }
 
-  return response.data;
+  return [null, response.data];
 });
 
 // 设置默认配置

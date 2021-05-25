@@ -101,7 +101,7 @@ export default {
       );
     },
     async getNews() {
-      let result = await home.getNews();
+      let [, result] = await home.getNews();
       if (result) {
         console.log(result);
       }
