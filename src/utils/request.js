@@ -10,11 +10,14 @@ const minRequest = new MinRequest();
 
 // 请求拦截器
 minRequest.interceptors.request(config => {
-  REQUEST_API_COUNT++;
-  uni.showLoading({
-    title: "处理中...",
-    mask: true,
-  });
+  if (config.isShowLoading) {
+    REQUEST_API_COUNT++;
+    uni.showLoading({
+      title: "处理中...",
+      mask: true,
+    });
+  }
+
   // 在发送请求之前做的事情
   // 如果 Vuex 中有token
   if (store.getters.token) {
@@ -27,10 +30,13 @@ minRequest.interceptors.request(config => {
 });
 
 // 响应拦截器
-minRequest.interceptors.response(response => {
+minRequest.interceptors.response((response, config) => {
   // 不管请求成功还是失败都拦截
-  REQUEST_API_COUNT--; // 非静默加载那么需要把请求数加一
-  if (REQUEST_API_COUNT === 0) {
+  if (config.isShowLoading) {
+    REQUEST_API_COUNT--; // 非静默加载那么需要把请求数加一
+  }
+
+  if (config.isShowLoading && REQUEST_API_COUNT === 0) {
     uni.hideLoading();
   }
 

@@ -13,6 +13,7 @@ class MinRequest {
     dataType: "json",
     responseType: "text",
     timeout: "120000", // 单位：ms 默认120s
+    isShowLoading: true, // 是否显示loading动画
   };
 
   interceptors = {
@@ -57,30 +58,34 @@ class MinRequest {
     options.data = options.data || {};
     options.header = { ...options.header, ...this[config].header };
     options.method = options.method || this[config].method;
+    options.isShowLoading =
+      options.isShowLoading !== null ? options.isShowLoading : this[config].isShowLoading;
 
     options = { ...options, ...MinRequest[requestBefore](options) };
     return new Promise((resolve, reject) => {
       options.success = function (res) {
-        resolve(MinRequest[requestAfter](res));
+        resolve(MinRequest[requestAfter](res, { ...options }));
       };
       options.fail = function (err) {
-        reject(MinRequest[requestAfter](err));
+        reject(MinRequest[requestAfter](err, { ...options }));
       };
       uni.request(options);
     });
   }
 
-  get(url, data, options = {}) {
+  get(url, data, isShowLoading = true, options = {}) {
     options.url = url;
     options.data = data;
     options.method = "GET";
+    options.isShowLoading = isShowLoading;
     return this.request(options);
   }
 
-  post(url, data, options = {}) {
+  post(url, data, isShowLoading = true, options = {}) {
     options.url = url;
     options.data = data;
     options.method = "POST";
+    options.isShowLoading = isShowLoading;
     return this.request(options);
   }
 }
