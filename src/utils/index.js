@@ -373,6 +373,35 @@ export function deepClone(source) {
 }
 
 /**
+ * @description 对象过滤
+ * @param {Object} 要过滤的对象
+ * @param {Function} 过滤函数
+ * @returns 返回过滤后的对象
+ * @tutorial 地址：https://www.delftstack.com/zh/howto/javascript/javascript-filter-object/
+ * @example
+ *  var grades = {
+        linearAlgebra : 90,
+        chemistry : 95,
+        biology :90,
+        languages : 96
+    };
+    console.log("The grades are ",grades);
+    var targetSubjects = Object.filter(grades, (grade)=> grade>=95 );
+    console.log("Target Subjects are ",targetSubjects);
+ */
+export function objFilter(mainObject, filterFunction) {
+  return Object.assign(
+    ...Object.keys(mainObject)
+      .filter(function (ObjectKey) {
+        return filterFunction(mainObject[ObjectKey]);
+      })
+      .map(function (ObjectKey) {
+        return { [ObjectKey]: mainObject[ObjectKey] };
+      }),
+  );
+}
+
+/**
  * @description 判断目标是否为空对象
  * @param {Object} obj 目标对象
  */
