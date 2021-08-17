@@ -5,6 +5,7 @@ import appConfigProd from "@/config/config.prod.js";
 let appConfig = {
   // 图片上传地址
   picURL: "https://pic.cwyyt.cn",
+  appSecret: "xxx", // 微信公众平台生成
 };
 
 if (process.env.NODE_ENV === "production") {
