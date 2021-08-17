@@ -9,6 +9,7 @@ import MniRequest from "@/utils/MinRequest";
 import interactiveFeedback from "@/utils/interactiveFeedback";
 import uniExtend from "@/utils/unExtends";
 import MescrollBody from "mescroll-uni/mescroll-body.vue";
+import hxNavbar from "@/components/hx-navbar/hx-navbar";
 
 // vuex
 import store from "@/store";
@@ -32,6 +33,9 @@ Vue.use(interactiveFeedback);
 
 // 使用 mescroll 组件
 Vue.component("mescroll-body", MescrollBody);
+
+// 全局导航栏组件
+Vue.component("hx-navbar", hxNavbar);
 
 // uni拓展
 uniExtend();

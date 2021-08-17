@@ -5,6 +5,7 @@ import appConfigProd from "@/config/config.prod.js";
 let appConfig = {
   // 图片上传地址
   picURL: "https://pic.cwyyt.cn",
+  appid: "wxe0c5639c8139419d",
   appSecret: "xxx", // 微信公众平台生成
 };
 
