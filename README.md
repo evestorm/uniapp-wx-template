@@ -14,21 +14,18 @@
 npm i
 ```
 
-### 本地开发
+### 开发、打包命令
 
 ```bash
-npm run dev:mp-weixin
+npm run dev # 开发环境 热更新
+npm run build:dev:mp-weixin # 打包dev环境
+npm run build:test:mp-weixin # 打包test环境
+npm run build:prod:mp-weixin # 打包prod环境
 ```
 
 此时项目根目录下会生成 `dist/dev/mp-weixin` 目录，打开你的小程序，选择创建小程序，目录选择 `dist/dev/mp-weixin` ，AppID 生成测试号，点击创建即可：
 
 ![创建小程序](./note/images/create-wx-miniapp.png)
-
-### 编译生产环境代码
-
-```bash
-npm run build
-```
 
 ### 更新项目
 
