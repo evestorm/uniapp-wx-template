@@ -1,6 +1,6 @@
 const appConfigDev = {
   // 开发
-  baseURL: "https://devapi.yunyutian.cn",
+  baseURL: "https://hxwlappd.huaxincem.com/pms",
 };
 
 export default appConfigDev;

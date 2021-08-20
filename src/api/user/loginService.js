@@ -2,43 +2,21 @@ import request from "@/utils/request";
 
 // http api
 const urlLists = {
-  login: "/api/services/app/YYPSiteArticle/GetSiteArticleInformation", // 登录
-  auth: "/api/services/app/YYPSiteArticle/GetSiteArticleInformation", // 授权
-  getUserInfo: "/api/services/app/YYPSiteArticle/GetSiteArticleInformation", // 获取用户信息
-
-  checkToken: "/api/services/app/YYPSiteArticle/GetSiteArticleInformation", // 检查token
-  getUserPhone: "/api/services/app/YYPSiteArticle/GetSiteArticleInformation", // 绑定手机号
+  weChatLogin: "/weChatLogin", // 微信登录
+  doLoginMobile: "/doLoginMobile", // 移动端用户登录
 };
 
-// 登录获取 openid + session_key
-const login = params => {
-  return request.post(urlLists.login, params);
+// 微信登录
+const weChatLogin = params => {
+  return request.post(urlLists.weChatLogin, params);
 };
 
-// 授权
-const auth = params => {
-  return request.post(urlLists.auth, params);
-};
-
-// 获取用户信息
-const getUserInfo = params => {
-  return request.post(urlLists.getUserInfo, params);
-};
-
-// 检查 token 有效性
-const checkToken = params => {
-  return request.post(urlLists.checkToken, params);
-};
-
-// 绑定手机号
-const getUserPhone = params => {
-  return request.post(urlLists.getUserPhone, params);
+const doLoginMobile = params => {
+  // params.phone = "18308891908";
+  return request.post(urlLists.doLoginMobile, params);
 };
 
 export default {
-  login,
-  auth,
-  getUserInfo,
-  checkToken,
-  getUserPhone,
+  weChatLogin,
+  doLoginMobile,
 };

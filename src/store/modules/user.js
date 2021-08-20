@@ -2,19 +2,26 @@
 import storage from "@/utils/unistorage/index";
 import user from "@/api/user/loginService";
 
-const mockUserInfo = {
-  nickname: "Lance",
-  sex: 1,
-  avatar: "https://placekitten.com/100/100",
-  city: "New York",
-  phone: "",
-};
+// const mockUserInfo = {
+//   realName: "Lance",
+//   sex: 1,
+//   headIconUrl: "https://placekitten.com/100/100",
+//   city: "New York",
+//   tel: "13100726520",
+//   openidApp: "mock-openid",
+//   unionid: "mock-unionid",
+//   token: "mock-token",
+// };
 
 export const state = {
-  userInfo: {}, //用户信息
+  token: "", // token
+  userInfo: {}, // 用户信息
   hasLogin: false, // 是否登录
 };
 export const getters = {
+  getToken(state) {
+    return state.token;
+  },
   getUserInfo(state) {
     return state.userInfo;
   },
@@ -23,7 +30,6 @@ export const getters = {
   },
 };
 export const mutations = {
-  // 设置token
   setToken(state, data) {
     if (data) {
       state.token = data;
@@ -53,20 +59,6 @@ export const actions = {
   // 微信小程序登录文档：https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/login.html
   // 微信小程序登录接口：https://developers.weixin.qq.com/miniprogram/dev/api/open-api/login/wx.login.html
 
-  // 1. 前端调用 wx.login 方法获取登录凭证（code）。
-  // 2. 前端把凭证（code）发送给后端
-  // 3. 后端用 code （code+appid+appsecret）换取 用户登录态信息（session_key + openid）：
-  // 包括用户在当前小程序的
-  //    唯一标识（openid）
-  //      (根据openid在数据库中查找是否有这个用户，
-  //        3.1 有就返回用户信息，
-  //        3.2 否则就把当前openid插入到数据库，返回未授权状态给前端)
-  //    微信开放平台帐号下的唯一标识（unionid，若当前小程序已绑定到微信开放平台帐号）
-  //    及本次登录的会话密钥（session_key）等
-  // 4. 前端接收后端返回的信息：
-  //      4.1 未授权状态，就需要调用 wx.getUserInfo 获取用户信息；再调用后端接口把用户信息保存到后端数据库，注册成功保存token
-  //      4.2 已授权（有当前用户信息），就展示用户信息，刷新token
-
   /**
    * @description 获取 wxCode
    */
@@ -75,9 +67,9 @@ export const actions = {
       provider: "weixin",
     });
     if (!err) {
-      return res.code;
+      return Promise.resolve([null, res.code]);
     }
-    return "";
+    return Promise.resolve([err, null]);
   },
 
   /**
@@ -90,111 +82,51 @@ export const actions = {
         content: "无法获取您的手机号码，请重试！",
         showCancel: false,
       });
+      return Promise.resolve([data.errMsg, null]);
     } else {
-      const wxCode = await context.dispatch("getWxCode");
-      const res = await user.getUserPhone({
-        iv: data.iv,
-        code: wxCode,
-        encryptedData: data.encryptedData,
-      });
-
-      // TODO: 假数据得删除
-      res.code = 0;
-
-      if (res.code === 0) {
-        uni.showToast({ title: "获取成功" });
-        // 查询新的 userInfo 并更新 userInfo
-        const [, data] = await user.getUserInfo({
-          code: wxCode,
-        });
-        // TODO: 假数据得删除
-        data.userInfo = mockUserInfo;
-        data.userInfo.phone = "18722212221";
-        context.commit("setUserInfo", data.userInfo ? data.userInfo : {});
-      } else {
-        await context.dispatch("getWxCode");
-        uni.showModal({
-          content: "手机号码获取失败，请重试！",
-          showCancel: false,
-        });
-      }
+      return Promise.resolve([null, data]);
     }
   },
 
+  // 程序启动，看本地有没有userInfo.phone;
+  // 有：调用 /driverHome/doLoginMobile
+  //    获取新 userInfo 和 里面的 token，其他接口传递 token
+  // 无：调用 /driverHome/weChatLogin (code + 获取手机号返回的 iv + encryptedData)
+  //    获取新 userInfo 和 里面的 token，其他接口传递 token
   /**
-   * @description 微信登录
+   * @description 微信登录（已登录过的用户）
    */
   async wxLogin(context) {
-    let token = storage.getToken();
-    console.log("getToken:", token);
-    if (token) {
-      // 有token
-      const [, result] = await user.checkToken();
-      console.log("checkToken:", result);
-      if (result) {
-        // token 有效:
+    let userInfo = storage.getUserInfo();
+    // username: 就是手机号
+    // hafSID: "openid,unionId"
+    console.log("userInfo:", userInfo);
+    if (userInfo && userInfo.username) {
+      const [openid, unionid] = userInfo.hafSID.split(",");
+      // 有电话，以前登录过，更新 userInfo
+      const [err, res] = await user.doLoginMobile({
+        openid,
+        phone: userInfo.username,
+        unionid,
+      });
+      if (!err && res.code === 0 && res.data) {
         // 设置vuex登录状态
         context.commit("setHasLogin", true);
-        // 查询新的 userInfo 并更新 userInfo
-        const [, data] = await user.getUserInfo();
         // TODO: 假数据得删除
-        data.userInfo = mockUserInfo;
-        context.commit("setUserInfo", data.userInfo ? data.userInfo : {});
-        return context.state.userInfo;
+        // res.data = mockUserInfo;
+        context.commit("setUserInfo", res.data ? res.data : {});
+        context.commit("setToken", res.data ? res.data.token : "");
+        uni.$emit("hasLogin");
+        return Promise.resolve([null, context.state.userInfo]);
       } else {
-        // token 失效:
+        // 登录失败
         // 登出
         context.commit("logout");
-        // 重新登录
-        this.dispatch("wxLogin");
+        return Promise.resolve([err, null]);
       }
     } else {
-      // 没有token
-      const [err, res] = await uni.login({
-        provider: "weixin",
-      });
-      console.log("uni.login:", { err, res });
-
-      if (err) {
-        // 登录失败
-        // 登出
-        context.commit("logout");
-        return false;
-      }
-      // 获取code成功
-
-      // 查询新的 userInfo 并更新 userInfo
-      const [, data] = await user.getUserInfo({
-        code: res.code,
-      });
-      if (data) {
-        console.log("user.getUserInfo:", data);
-      }
-
-      // TODO: 删掉到时候（注释即没登录过，不注释代表后台有用户信息）
-      // data.token = "mock user";
-      // data.userInfo = {
-      //   nickname: "Lance",
-      //   sex: 1,
-      //   avatar: "https://placekitten.com/100/100",
-      //   city: "New York",
-      //   phone: "",
-      // };
-
-      if (data && data.token) {
-        // 登录成功
-        // 设置vuex登录状态
-        context.commit("setHasLogin", true);
-        context.commit("setUserInfo", data.userInfo ? data.userInfo : {});
-        // 更新localStorage的token 和 userInfo
-        storage.setToken(data.token);
-        storage.setUserInfo(data.userInfo);
-        return context.state.userInfo;
-      } else {
-        // 登录失败
-        context.commit("logout");
-        return false;
-      }
+      context.commit("logout");
+      return Promise.resolve(["登录失败", null]);
     }
   },
 };

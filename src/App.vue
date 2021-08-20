@@ -5,8 +5,6 @@ import Vue from "vue";
 export default {
   // 全局对象
   globalData: {
-    appid: "wxe0c5639c8139419d",
-    PicDomain: "https://pic.cwyyt.cn",
     canIUseGetUserInfo() {
       return uni.canIUse("button.open-type.getUserInfo"); // 判断小程序api是否能够在当前版本使用
     },
@@ -46,10 +44,10 @@ export default {
     console.log("App Hide");
   },
   computed: {
-    ...mapGetters(["getUserInfo", "getHasLogin"]), // 暂时没用到
+    ...mapGetters(["getUserInfo", "getNeedAuth", "getHasLogin"]), // 暂时没用到
   },
   methods: {
-    ...mapMutations(["setUserInfo"]), // 暂时没用到
+    ...mapMutations(["setNeedAuth", "setUserInfo"]), // 暂时没用到
     ...mapActions(["wxLogin"]),
     // 及时更新微信小程序
     updateWxApp() {

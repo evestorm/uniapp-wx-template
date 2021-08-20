@@ -1,6 +1,6 @@
 const appConfigDev = {
   // 生产
-  baseURL: "https://api.cwyyt.cn",
+  baseURL: "https://hxwlapp.huaxincem.com/pms",
 };
 
 export default appConfigDev;

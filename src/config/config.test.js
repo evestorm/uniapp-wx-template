@@ -1,6 +1,6 @@
 const appConfigDev = {
   // 测试
-  baseURL: "https://tapi.yunyutian.cn",
+  baseURL: "https://hxwlappq.huaxincem.com/pms",
 };
 
 export default appConfigDev;
