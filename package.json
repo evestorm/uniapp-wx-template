@@ -40,7 +40,11 @@
     "test:h5": "cross-env UNI_PLATFORM=h5 jest -i",
     "test:ios": "cross-env UNI_PLATFORM=app-plus UNI_OS_NAME=ios jest -i",
     "test:mp-baidu": "cross-env UNI_PLATFORM=mp-baidu jest -i",
-    "test:mp-weixin": "cross-env UNI_PLATFORM=mp-weixin jest -i"
+    "test:mp-weixin": "cross-env UNI_PLATFORM=mp-weixin jest -i",
+    "dev": "cross-env VUE_APP_ENV=dev UNI_PLATFORM=mp-weixin vue-cli-service uni-build --watch",
+    "build:dev:mp-weixin": "cross-env VUE_APP_ENV=dev UNI_PLATFORM=mp-weixin vue-cli-service uni-build",
+    "build:test:mp-weixin": "cross-env VUE_APP_ENV=test UNI_PLATFORM=mp-weixin vue-cli-service uni-build",
+    "build:prod:mp-weixin": "cross-env VUE_APP_ENV=prod UNI_PLATFORM=mp-weixin vue-cli-service uni-build"
   },
   "dependencies": {
     "@dcloudio/uni-app-plus": "^2.0.0-31620210325001",
