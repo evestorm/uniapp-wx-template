@@ -9,7 +9,7 @@
  * @param {number} duration 时间
  * @example this.$showToast("这是一个吐司提示")
  */
-function showToast(types = "success", msg = "", duration = 1000) {
+function showToast(types = "success", msg = "", duration = 1000, mask = false) {
   let img = "";
   if (types === "success") {
     // 成功
@@ -17,15 +17,18 @@ function showToast(types = "success", msg = "", duration = 1000) {
   } else if (types === "error") {
     // 失败
     img = "/static/totast/round_close.png";
-  } else {
+  } else if (types === "warning") {
     // 警告
     img = "/static/totast/round_info.png";
+  } else {
+    img = "";
   }
   uni.showToast({
     title: msg,
     icon: "none",
     duration: duration,
-    image: img,
+    image: img || "",
+    mask,
   });
 }
 
@@ -94,7 +97,6 @@ export function showGetAuthModal() {
 function install(Vue) {
   Vue.prototype.$toast = showToast;
   Vue.prototype.$modal = showModal;
-  Vue.prototype.$hxAuthUserProfileModal = showGetAuthModal;
 }
 
 export default { install, showToast, showGetAuthModal };

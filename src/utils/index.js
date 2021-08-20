@@ -568,6 +568,31 @@ export const fileToBase64 = file => {
 };
 
 /**
+ * null => ''
+ * @param {*} data 要处理的数据
+ */
+export function null2str(data) {
+  for (let x in data) {
+    if (data[x] === null) {
+      // 如果是null 把直接内容转为 ''
+      data[x] = "";
+    } else {
+      if (Array.isArray(data[x])) {
+        // 是数组遍历数组 递归继续处理
+        data[x] = data[x].map(z => {
+          return null2str(z);
+        });
+      }
+      if (typeof data[x] === "object") {
+        // 是json 递归继续处理
+        data[x] = null2str(data[x]);
+      }
+    }
+  }
+  return data;
+}
+
+/**
  * ! ---------------------- 节流防抖相关 ----------------------
  */
 
@@ -794,6 +819,12 @@ export function combImg(imgPath) {
 export function gotoAuth() {
   // 获取当前页面的URL和url完整路径
   let fullPath = getCurrentPageUrlAndArgs();
+
+  console.log("fullPath", fullPath);
+  // 如果跳转了
+  if (fullPath.includes("auth/auth")) {
+    fullPath = "pages/home/home";
+  }
 
   let redirectUrl = "/" + fullPath;
   let url = `/pages/common/auth/auth?redirectUrl=${encodeURIComponent(redirectUrl)}`;

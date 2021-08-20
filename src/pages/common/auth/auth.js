@@ -94,9 +94,12 @@ export default {
           encrypted_data: userData.encryptedData,
         };
         console.log("uni.getUserProfile", userData);
-        const [, result] = await user.getUserInfo(postData);
+        let [err, result] = await user.getUserInfo(postData);
+
         // TODO: 到时候删除
+        result = {};
         result.userInfo = mockUserInfo;
+
         if (result) {
           // 登录成功
           this.setHasLogin(true);
@@ -112,7 +115,7 @@ export default {
           this.wxCode = await this.getWxCode();
           uni.showModal({
             title: "授权失败",
-            content: result.msg,
+            content: err,
             showCancel: false,
           });
         }

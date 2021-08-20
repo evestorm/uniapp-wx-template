@@ -167,7 +167,9 @@ export const actions = {
       const [, data] = await user.getUserInfo({
         code: res.code,
       });
-      console.log("user.getUserInfo:", data);
+      if (data) {
+        console.log("user.getUserInfo:", data);
+      }
 
       // TODO: 删掉到时候（注释即没登录过，不注释代表后台有用户信息）
       // data.token = "mock user";
@@ -179,7 +181,7 @@ export const actions = {
       //   phone: "",
       // };
 
-      if (data.token) {
+      if (data && data.token) {
         // 登录成功
         // 设置vuex登录状态
         context.commit("setHasLogin", true);
